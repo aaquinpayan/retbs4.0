@@ -41,9 +41,9 @@ AppAsset::register($this);
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             ['label' => 'Users', 'url' => ['/users/index']],
-            ['label' => 'Taxpayer Profiles', 'url' => ['/site/about']],
-            ['label' => 'Real Estate Properties', 'url' => ['/site/accounts']],
-            ['label' => 'Tax Declaration', 'url' => ['/site/accounts']],
+            ['label' => 'Taxpayer Profiles', 'url' => ['/taxpayer/index']],
+            ['label' => 'Real Estate Properties', 'url' => ['/property/index']],
+            ['label' => 'Tax Declaration', 'url' => ['/taxdeclaration/index']],
             ['label' => 'Statement of Account', 'url' => ['/site/accounts']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]

@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Users */
+/* @var $model app\models\TaxDeclaration */
 
-$this->title = 'Create User';
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->title = 'Create Tax Declaration';
+$this->params['breadcrumbs'][] = ['label' => 'Tax Declarations', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="users-create">
+<div class="tax-declaration-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
