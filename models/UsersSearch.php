@@ -39,7 +39,7 @@ class UsersSearch extends Users
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $type)
     {
         $query = Users::find();
 
@@ -59,8 +59,9 @@ class UsersSearch extends Users
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'user_id' => $this->user_id,
-            'user_type' => $this->user_type,
+            //'user_id' => $this->user_id,
+            //'user_type' => $this->user_type,
+            'user_type' => $type,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

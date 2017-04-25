@@ -12,6 +12,14 @@ body {
 
 .wrap > .container {
     padding: 70px 15px 20px;
+    width: 70%;
+    float: right;
+}
+
+.wrap > .sidenav {
+    float: left; 
+    width: 20%; 
+    margin: 5%;
 }
 
 .footer {

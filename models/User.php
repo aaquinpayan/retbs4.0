@@ -68,6 +68,23 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
     }
 
     /**
+     * Finds user by usertype
+     *
+     * @param string $user_type
+     * @return static|null
+     */
+    public static function findByUsername($user_type)
+    {
+        foreach (self::$users as $user) {
+            if ($user['user_type'] == $user_type) {
+                return new static($user);
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * @inheritdoc
      */
     public function getId()
