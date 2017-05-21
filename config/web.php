@@ -1,12 +1,13 @@
 <?php
 
+use kartik\mpdf\Pdf;
+
 $params = require(__DIR__ . '/params.php');
 
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    //'layout' => 'user',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -39,6 +40,14 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
+
+        'pdf' => [
+                    'class' => Pdf::classname(),
+                    'format' => Pdf::FORMAT_A4,
+                    'orientation' => Pdf::ORIENT_PORTRAIT,
+                    'destination' => Pdf::DEST_BROWSER,
+                    // refer settings section for all configuration options
+                ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
