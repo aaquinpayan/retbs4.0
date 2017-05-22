@@ -30,18 +30,80 @@ class UsersController extends Controller
     }
 
     /**
-     * Lists all Users models.
+     * Lists all Users -> Admin models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionAdmin()
     {
-        $searchModel = new UsersSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $this->layout = 'admin';
 
-        return $this->render('index', [
+        $searchModel = new UsersSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 1);
+        $dataProvider->pagination->pageSize=5; //not sure
+
+        return $this->render('admin', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    /**
+     * Lists all Users -> Assessor models.
+     * @return mixed
+     */
+    public function actionAssessor()
+    {
+        $this->layout = 'admin';
+
+        $searchModel = new UsersSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 2);
+        $dataProvider->pagination->pageSize=5; //not sure
+
+        return $this->render('assessor', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Lists all Users -> Treasurer models.
+     * @return mixed
+     */
+    public function actionTreasurer()
+    {
+        $this->layout = 'admin';
+
+        $searchModel = new UsersSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 3);
+        $dataProvider->pagination->pageSize=5; //not sure
+
+        return $this->render('treasurer', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Lists all Users -> Taxpayer models.
+     * @return mixed
+     */
+    public function actionTaxpayer()
+    {
+        $this->layout = 'admin';
+
+        $searchModel = new UsersSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 4);
+        $dataProvider->pagination->pageSize=5; //not sure
+
+        return $this->render('taxpayer', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionPassword()
+    {
+        $this->layout = 'admin';
     }
 
     /**
@@ -51,6 +113,8 @@ class UsersController extends Controller
      */
     public function actionView($id)
     {
+        $this->layout = 'admin';
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -63,6 +127,7 @@ class UsersController extends Controller
      */
     public function actionCreate()
     {
+        $this->layout = 'admin';
         $model = new Users();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -82,6 +147,7 @@ class UsersController extends Controller
      */
     public function actionUpdate($id)
     {
+       $this->layout = 'admin';
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -103,7 +169,7 @@ class UsersController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['users/admin']); #not sure
     }
 
     /**

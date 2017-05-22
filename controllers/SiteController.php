@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 
+use app\controllers\UploadForm;
+use yii\web\UploadedFile;
+
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -121,6 +124,21 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionUpload()
+    {
+        $model = new UploadForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+
+            if ($model->validate()) {                
+                $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
+            }
+        }
+
+        return $this->render('upload', ['model' => $model]);
     }
 
 }

@@ -12,6 +12,15 @@ body {
 
 .wrap > .container {
     padding: 70px 15px 20px;
+    width: 70%;
+    float: right;
+}
+
+/*not default*/
+.wrap > .sidenav {
+    float: left; 
+    width: 20%; 
+    margin: 5%;
 }
 
 .footer {
@@ -19,6 +28,9 @@ body {
     background-color: #f5f5f5;
     border-top: 1px solid #ddd;
     padding-top: 20px;
+    position:absolute;
+    bottom:0;
+    left:0;
 }
 
 .jumbotron {

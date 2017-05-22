@@ -1,5 +1,7 @@
 <?php
 
+use kartik\mpdf\Pdf;
+
 $params = require(__DIR__ . '/params.php');
 
 $config = [
@@ -38,6 +40,14 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
+
+        'pdf' => [
+                    'class' => Pdf::classname(),
+                    'format' => Pdf::FORMAT_A4,
+                    'orientation' => Pdf::ORIENT_PORTRAIT,
+                    'destination' => Pdf::DEST_BROWSER,
+                    // refer settings section for all configuration options
+                ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -66,5 +76,7 @@ if (YII_ENV_DEV) {
         //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
+
+
 
 return $config;
