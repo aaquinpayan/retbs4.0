@@ -8,7 +8,10 @@ use app\models\TaxDeclarationSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+<<<<<<< HEAD
 use yii\web\UploadedFile;
+=======
+>>>>>>> origin/db_branch
 
 /**
  * TaxDeclarationController implements the CRUD actions for TaxDeclaration model.
@@ -66,7 +69,11 @@ class TaxDeclarationController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+<<<<<<< HEAD
    /* public function actionCreate()
+=======
+    public function actionCreate()
+>>>>>>> origin/db_branch
     {
         $this->layout = 'admin';
 
@@ -88,6 +95,7 @@ class TaxDeclarationController extends Controller
                 'model' => $model,
             ]);
         }
+<<<<<<< HEAD
     }*/
 
     public function actionCreate(){
@@ -122,6 +130,8 @@ class TaxDeclarationController extends Controller
                 'model' => $model,
             ]);
         }
+=======
+>>>>>>> origin/db_branch
     }
 
     /**
@@ -136,6 +146,7 @@ class TaxDeclarationController extends Controller
 
         $model = $this->findModel($id);
 
+<<<<<<< HEAD
         if ($model->load(Yii::$app->request->post())){
 
             //$model->cancels_arp_no = $cancel_arp_no;
@@ -148,6 +159,10 @@ class TaxDeclarationController extends Controller
             if($model->save()) {
                 return $this->redirect(['view', 'id' => $model->td_no]);
             }
+=======
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->td_no]);
+>>>>>>> origin/db_branch
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -155,10 +170,13 @@ class TaxDeclarationController extends Controller
         }
     }
 
+<<<<<<< HEAD
     
 
 
 
+=======
+>>>>>>> origin/db_branch
     /**
      * Deletes an existing TaxDeclaration model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -174,10 +192,19 @@ class TaxDeclarationController extends Controller
  
     public function actionReport($id) {
 
+<<<<<<< HEAD
+=======
+        //$model = $this->findModel($id);
+
+>>>>>>> origin/db_branch
         $model = $this->findModel($id);
 
         $pdf = Yii::$app->pdf;
         $pdf->content = $this->renderPartial('_taxdecDownload', ['model' => $this->findModel($id)]);
+<<<<<<< HEAD
+=======
+        //$pdf->content = $this->renderPartial('_taxdecDownload');
+>>>>>>> origin/db_branch
         return $pdf->render();
     }
 

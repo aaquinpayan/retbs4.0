@@ -15,6 +15,11 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
+<<<<<<< HEAD
+=======
+    <?= $form->field($model, 'property_id') ?>
+
+>>>>>>> origin/db_branch
     <?= $form->field($model, 'property_index_no') ?>
 
     <?= $form->field($model, 'name_of_owner') ?>

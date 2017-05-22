@@ -36,8 +36,13 @@ class Property extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+<<<<<<< HEAD
             [['name_of_owner', 'kind', 'location', 'north_boundary', 'south_boundary', 'east_boundary', 'west_boundary'], 'required'],
             [['name_of_owner', 'kind', 'location', 'north_boundary', 'south_boundary', 'east_boundary', 'west_boundary'], 'string', 'max' => 32],
+=======
+            [['property_index_no', 'name_of_owner', 'kind', 'location', 'north_boundary', 'south_boundary', 'east_boundary', 'west_boundary'], 'required'],
+            [['property_index_no', 'name_of_owner', 'kind', 'location', 'north_boundary', 'south_boundary', 'east_boundary', 'west_boundary'], 'string', 'max' => 32],
+>>>>>>> origin/db_branch
         ];
        /**
      * @inheritdoc
@@ -46,6 +51,10 @@ class Property extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+<<<<<<< HEAD
+=======
+        	'property_id' => "Property ID",
+>>>>>>> origin/db_branch
             'property_index_no' => 'Property Index No',
             'name_of_owner' => 'Owner',
             'kind' => 'Kind',

@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 
 namespace app\models;
 
@@ -7,6 +8,16 @@ use Yii;
 /**
  * This is the model class for table "account_statement".
  *
+=======
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "account_statement".
+ *
+>>>>>>> origin/db_branch
  * @property int $soa_id
  * @property int $td_no
  * @property string $barangay
@@ -19,6 +30,7 @@ use Yii;
  * @property int $total_amount
  * @property int $grand_total
  * @property string $validity
+<<<<<<< HEAD
  */
 class StatementAccount extends \yii\db\ActiveRecord
 {
@@ -35,11 +47,30 @@ class StatementAccount extends \yii\db\ActiveRecord
      */
     public function rules()
     {
+=======
+ */
+class StatementAccount extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'account_statement';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+>>>>>>> origin/db_branch
         return [
             [['td_no', 'barangay', 'year_unpaid', 'percentage', 'basic', 'penalty_basic', 'sef', 'penalty_sef', 'total_amount', 'grand_total', 'validity'], 'required'],
             [['td_no', 'year_unpaid', 'percentage', 'basic', 'penalty_basic', 'sef', 'penalty_sef', 'total_amount', 'grand_total'], 'integer'],
             [['validity'], 'safe'],
             [['barangay'], 'string', 'max' => 32],
+<<<<<<< HEAD
         ];
     }
 
@@ -49,6 +80,17 @@ class StatementAccount extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+=======
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+>>>>>>> origin/db_branch
             'soa_id' => 'Soa ID',
             'td_no' => 'Td No',
             'barangay' => 'Barangay',
@@ -61,6 +103,12 @@ class StatementAccount extends \yii\db\ActiveRecord
             'total_amount' => 'Total Amount',
             'grand_total' => 'Grand Total',
             'validity' => 'Validity',
+<<<<<<< HEAD
         ];
     }
 }
+=======
+        ];
+    }
+}
+>>>>>>> origin/db_branch

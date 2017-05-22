@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 namespace app\models;
 
@@ -30,4 +31,34 @@ class UploadForm extends Model
     }
 }
 
+=======
+<?php
+
+namespace app\controllers;
+
+use Yii;
+use yii\base\Model;
+use yii\web\UploadedFile;
+
+/**
+* UploadForm is the model behind the upload form.
+*/
+class UploadForm extends Model
+{
+/**
+ * @var UploadedFile|Null file attribute
+ */
+public $file;
+
+/**
+ * @return array the validation rules.
+ */
+public function rules()
+{
+    return [
+        [['file'], 'file'],
+    ];
+}
+}
+>>>>>>> origin/db_branch
 ?>

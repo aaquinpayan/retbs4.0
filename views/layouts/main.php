@@ -39,7 +39,11 @@ AppAsset::register($this);
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
+<<<<<<< HEAD
                 ['label' => 'Home', 'url' => ['/tax-declaration/index']],
+=======
+                ['label' => 'Home', 'url' => ['/users/admin']],
+>>>>>>> origin/db_branch
                 Yii::$app->user->isGuest ? (
                     ['label' => 'Login', 'url' => ['/site/login']]
                 ) : (

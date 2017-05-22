@@ -9,6 +9,11 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/db_branch
 /**
  * TaxpayerController implements the CRUD actions for Taxpayer model.
  */
@@ -65,6 +70,10 @@ class TaxpayerController extends Controller
      */
     public function actionCreate()
     {
+<<<<<<< HEAD
+=======
+        $this->layout = 'admin';
+>>>>>>> origin/db_branch
         $model = new Taxpayer();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

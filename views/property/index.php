@@ -24,12 +24,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'rowOptions' => function($model) {
+<<<<<<< HEAD
             $url = Url::to(['property/view', 'id' => $model['p_no']]);
+=======
+            $url = Url::to(['property/view', 'id' => $model['property_id']]);
+>>>>>>> origin/db_branch
             return ['onclick' => "window.location.href='{$url}'"];
         },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+<<<<<<< HEAD
+=======
+            'property_id',
+>>>>>>> origin/db_branch
             'property_index_no',
             'name_of_owner',
             'kind',

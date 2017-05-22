@@ -7,7 +7,11 @@ use yii\helpers\Html;
 
 $this->title = 'Update Property: ' . $model->property_index_no;
 $this->params['breadcrumbs'][] = ['label' => 'Properties', 'url' => ['index']];
+<<<<<<< HEAD
 $this->params['breadcrumbs'][] = ['label' => $model->property_index_no, 'url' => ['view', 'id' => $model->property_index_no]];
+=======
+$this->params['breadcrumbs'][] = ['label' => $model->property_index_no, 'url' => ['view', 'id' => $model->property_id]];
+>>>>>>> origin/db_branch
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="property-update">

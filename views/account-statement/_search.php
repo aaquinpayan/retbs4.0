@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -15,6 +16,24 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
+=======
+
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\AccountStatementSearch */
+/* @var $form yii\widgets\ActiveForm */
+?>
+
+<div class="account-statement-search">
+
+    <?php $form = ActiveForm::begin([
+        'action' => ['index'],
+        'method' => 'get',
+    ]); ?>
+
+>>>>>>> origin/db_branch
     <?= $form->field($model, 'soa_id') ?>
 
     <?= $form->field($model, 'td_no') ?>
@@ -39,6 +58,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'validity') ?>
 
+<<<<<<< HEAD
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
@@ -47,3 +67,13 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+=======
+    <div class="form-group">
+        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>
+>>>>>>> origin/db_branch

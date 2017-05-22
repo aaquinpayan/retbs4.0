@@ -12,7 +12,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tax-declaration-create">
 
+<<<<<<< HEAD
     <h3><?= Html::encode($this->title) ?></h3>
+=======
+    <h1><?= Html::encode($this->title) ?></h1>
+>>>>>>> origin/db_branch
 
     <?= $this->render('_form', [
         'model' => $model,

@@ -18,8 +18,13 @@ class PropertySearch extends Property
     public function rules()
     {
         return [
+<<<<<<< HEAD
             [['property_index_no'], 'integer'],
             [['name_of_owner', 'kind', 'location', 'north_boundary', 'south_boundary', 'east_boundary', 'west_boundary'], 'safe'],
+=======
+            [['property_id'], 'integer'],
+            [['property_index_no', 'name_of_owner', 'kind', 'location', 'north_boundary', 'south_boundary', 'east_boundary', 'west_boundary'], 'safe'],
+>>>>>>> origin/db_branch
         ];
     }
 
@@ -59,10 +64,18 @@ class PropertySearch extends Property
 
         // grid filtering conditions
         $query->andFilterWhere([
+<<<<<<< HEAD
             'property_index_no' => $this->property_index_no,
         ]);
 
         $query->andFilterWhere(['like', 'name_of_owner', $this->name_of_owner])
+=======
+            'property_id' => $this->property_id,
+        ]);
+
+        $query->andFilterWhere(['like', 'property_index_no', $this->property_index_no])
+            ->andFilterWhere(['like', 'name_of_owner', $this->name_of_owner])
+>>>>>>> origin/db_branch
             ->andFilterWhere(['like', 'kind', $this->kind])
             ->andFilterWhere(['like', 'location', $this->location])
             ->andFilterWhere(['like', 'north_boundary', $this->north_boundary])
