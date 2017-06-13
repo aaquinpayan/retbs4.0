@@ -13,11 +13,9 @@ use yii\helpers\ArrayHelper;
 
     <?php $form = ActiveForm::begin(); ?>
     
-<<<<<<< HEAD
-=======
+
     <?= $form->field($model, 'property_index_no')->textInput(['maxlength' => true]) ?>
 
->>>>>>> origin/db_branch
     <?php $taxpayer=\app\models\Taxpayer::find()->all(); ?>
     <?php $taxpayerList = ArrayHelper::map($taxpayer,'full_name', 'full_name') ?>
     <?= $form->field($model, 'name_of_owner')->dropDownList($taxpayerList, ['prompt' => '---- Select Name of Owner ----'])->label('Name of Owner') ?>

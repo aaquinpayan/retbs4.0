@@ -11,19 +11,25 @@ class UploadForm extends Model
     /**
      * @var UploadedFile
      */
-    public $imageFile;
+    public $file;
 
     public function rules()
     {
         return [
-            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'pdf'],
+            [['file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'xlsx,xls'],
         ];
     }
     
     public function upload()
     {
         if ($this->validate()) {
-            $this->imageFile->saveAs('uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+            $this->file->saveAs('uploads/' . $this->file->baseName . '.' . $this->file->extension);
+             Yii::$app->getSession()->setFlash('success', [
+    'type' => 'success',
+    'icon' => 'fa fa-users',
+    'message' => Yii::t(Html::encode('My Message')),
+    'title' => Yii::t('app', Html::encode('My Title')),
+]);
             return true;
         } else {
             return false;

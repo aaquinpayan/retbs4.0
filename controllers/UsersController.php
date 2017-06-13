@@ -35,11 +35,9 @@ class UsersController extends Controller
      */
     public function actionAdmin()
     {
-<<<<<<< HEAD
-        $this->layout = 'user';
-=======
+
         $this->layout = 'admin';
->>>>>>> origin/db_branch
+
 
         $searchModel = new UsersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 1);
@@ -57,11 +55,9 @@ class UsersController extends Controller
      */
     public function actionAssessor()
     {
-<<<<<<< HEAD
-        $this->layout = 'user';
-=======
+
         $this->layout = 'admin';
->>>>>>> origin/db_branch
+
 
         $searchModel = new UsersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 2);
@@ -79,11 +75,9 @@ class UsersController extends Controller
      */
     public function actionTreasurer()
     {
-<<<<<<< HEAD
-        $this->layout = 'user';
-=======
+
         $this->layout = 'admin';
->>>>>>> origin/db_branch
+
 
         $searchModel = new UsersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 3);
@@ -101,11 +95,9 @@ class UsersController extends Controller
      */
     public function actionTaxpayer()
     {
-<<<<<<< HEAD
-        $this->layout = 'user';
-=======
+
         $this->layout = 'admin';
->>>>>>> origin/db_branch
+
 
         $searchModel = new UsersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 4);
@@ -119,11 +111,9 @@ class UsersController extends Controller
 
     public function actionPassword()
     {
-<<<<<<< HEAD
-        $this->layout = 'user';
-=======
+
         $this->layout = 'admin';
->>>>>>> origin/db_branch
+
     }
 
     /**
@@ -133,11 +123,9 @@ class UsersController extends Controller
      */
     public function actionView($id)
     {
-<<<<<<< HEAD
-        $this->layout = 'user';
-=======
+
         $this->layout = 'admin';
->>>>>>> origin/db_branch
+
 
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -151,11 +139,9 @@ class UsersController extends Controller
      */
     public function actionCreate()
     {
-<<<<<<< HEAD
-        $this->layout = 'user';
-=======
+
         $this->layout = 'admin';
->>>>>>> origin/db_branch
+
         $model = new Users();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -175,11 +161,9 @@ class UsersController extends Controller
      */
     public function actionUpdate($id)
     {
-<<<<<<< HEAD
-        $this->layout = 'user';
-=======
+
        $this->layout = 'admin';
->>>>>>> origin/db_branch
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

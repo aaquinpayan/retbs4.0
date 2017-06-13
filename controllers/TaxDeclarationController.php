@@ -8,10 +8,9 @@ use app\models\TaxDeclarationSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-<<<<<<< HEAD
 use yii\web\UploadedFile;
-=======
->>>>>>> origin/db_branch
+
+
 
 /**
  * TaxDeclarationController implements the CRUD actions for TaxDeclaration model.
@@ -21,6 +20,8 @@ class TaxDeclarationController extends Controller
     /**
      * @inheritdoc
      */
+    public $file;
+
     public function behaviors()
     {
         return [
@@ -32,6 +33,7 @@ class TaxDeclarationController extends Controller
             ],
         ];
     }
+
 
     /**
      * Lists all TaxDeclaration models.
@@ -69,34 +71,8 @@ class TaxDeclarationController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-<<<<<<< HEAD
-   /* public function actionCreate()
-=======
-    public function actionCreate()
->>>>>>> origin/db_branch
-    {
-        $this->layout = 'admin';
 
-        $model = new TaxDeclaration();
-
-        if ($model->load(Yii::$app->request->post())) {
-            
-            $model->assessed_value = $model->market_value * $model->assessment_level;
-            $model->php = $model->assessed_value;
-            $model->total_php = $model->market_value;
-            $model->tot_assessed_value = Yii::$app->formatter->asSpellout($model->assessed_value) . ' pesos';
-
-            if($model->save()){
-                return $this->redirect(['view', 'id' => $model->td_no]);
-            }
-            
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-<<<<<<< HEAD
-    }*/
+   
 
     public function actionCreate(){
         $this->layout = 'admin';
@@ -130,8 +106,7 @@ class TaxDeclarationController extends Controller
                 'model' => $model,
             ]);
         }
-=======
->>>>>>> origin/db_branch
+
     }
 
     /**
@@ -146,7 +121,6 @@ class TaxDeclarationController extends Controller
 
         $model = $this->findModel($id);
 
-<<<<<<< HEAD
         if ($model->load(Yii::$app->request->post())){
 
             //$model->cancels_arp_no = $cancel_arp_no;
@@ -159,24 +133,23 @@ class TaxDeclarationController extends Controller
             if($model->save()) {
                 return $this->redirect(['view', 'id' => $model->td_no]);
             }
-=======
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->td_no]);
->>>>>>> origin/db_branch
+
         } else {
             return $this->render('update', [
                 'model' => $model,
             ]);
+            }
         }
     }
-
-<<<<<<< HEAD
     
 
 
+    
 
-=======
->>>>>>> origin/db_branch
+
     /**
      * Deletes an existing TaxDeclaration model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -192,19 +165,14 @@ class TaxDeclarationController extends Controller
  
     public function actionReport($id) {
 
-<<<<<<< HEAD
-=======
-        //$model = $this->findModel($id);
 
->>>>>>> origin/db_branch
         $model = $this->findModel($id);
 
         $pdf = Yii::$app->pdf;
         $pdf->content = $this->renderPartial('_taxdecDownload', ['model' => $this->findModel($id)]);
-<<<<<<< HEAD
-=======
+
         //$pdf->content = $this->renderPartial('_taxdecDownload');
->>>>>>> origin/db_branch
+
         return $pdf->render();
     }
 
@@ -224,4 +192,47 @@ class TaxDeclarationController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionUpload()
+    {
+         $this->layout = 'admin';
+
+        $model = new UploadForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+            
+
+            if ($model->validate()) { 
+
+                $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
+
+
+            }
+        }
+        
+        return $this->render('upload', ['model' => $model]);
+    }
+
+    public function actionDownload($id) 
+{ 
+    $download = UploadedFile::findOne($id); 
+    $path=Yii::getAlias('@webroot').'/uploads/'.$download->attachment;
+
+    if (file_exists($path)) {
+        return Yii::$app->response->sendFile($path);
+    }
+}
+public function actionPdf($id) {
+    $model = ModelClass::findOne($id);
+
+    // This will need to be the path relative to the root of your app.
+    $filePath = 'uploads/';
+    // Might need to change '@app' for another alias
+    $completePath = Yii::getAlias('@app'.$filePath.'/'.$model->fileName);
+
+    return Yii::$app->response->sendFile($completePath, $model->fileName);
+}
+
+
 }

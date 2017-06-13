@@ -2,10 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-<<<<<<< HEAD
 use kartik\widgets\FileInput;
-=======
->>>>>>> origin/db_branch
+
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\TaxDeclaration */
@@ -14,11 +13,9 @@ use kartik\widgets\FileInput;
 
 <div class="tax-declaration-form">
 
-<<<<<<< HEAD
+
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
-=======
-    <?php $form = ActiveForm::begin(); ?>
->>>>>>> origin/db_branch
+
 
     <?= $form->field($model, 'arp_no')->textInput() ?>
 
@@ -38,11 +35,9 @@ use kartik\widgets\FileInput;
 
     
 
-<<<<<<< HEAD
+
     <?= $form->field($model, 'location')->textarea()->label('Location'); ?>
-=======
-    <?= $form->field($model, 'location')->textInput(['readonly' => true, 'value' => 'Lemery, Batangas']) ?>
->>>>>>> origin/db_branch
+
 
     <?= $form->field($model, 'otc')->textInput() ?>
 
@@ -88,16 +83,15 @@ use kartik\widgets\FileInput;
 
     <?= $form->field($model, 'prov_assessor')->textInput() ?>
 
-<<<<<<< HEAD
-    <!--<?= $form->field($model, 'tax_dec_filename') ?>
+
+   <!-- <?= $form->field($model, 'tax_dec_filename') ?>
 
     <?= $form->field($model, 'taxdec_pdf')->widget(FileInput::classname(), [
         'options'=>['accept'=>'pdf/*'],
         'pluginOptions'=>['allowedFileExtensions'=>'pdf']
     ]) ?> -->
 
-=======
->>>>>>> origin/db_branch
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

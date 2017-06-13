@@ -5,11 +5,8 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveRecord;
 
-<<<<<<< HEAD
+
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
-=======
-class User extends \yii\base\Object implements \yii\web\IdentityInterface
->>>>>>> origin/db_branch
 {
     
     public static function tableName()
@@ -30,7 +27,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
         ];
     }
 
-<<<<<<< HEAD
+
     /**
      * @inheritdoc
      */
@@ -43,7 +40,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
             'password' => 'Password',
             'user_type' => 'User Type',
         ];
-=======
+
     /*private static $users = [
         '100' => [
             'id' => '100',
@@ -60,11 +57,8 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
             'accessToken' => '101-token',
         ],
     ];*/
-    public static function tableName()
-    {
-        return 'user';
->>>>>>> origin/db_branch
     }
+    
 
 
     /**
@@ -91,11 +85,9 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public static function findByUsername($username)
     {
-<<<<<<< HEAD
+
         return static::find()->where(['username' => $username])->one();
-=======
-        return self::findOne(['username' => $username]);
->>>>>>> origin/db_branch
+
     }
 
     /**

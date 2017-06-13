@@ -18,13 +18,10 @@ class TaxDeclarationSearch extends TaxDeclaration
     public function rules()
     {
         return [
-<<<<<<< HEAD
+
             [['td_no', 'survey_no', 'area', 'market_value', 'assessment_level', 'assessed_value', 'php', 'total_php', 'effectivity_quarter', 'effectivity_year'], 'integer'],
             [['contact_no', 'classification', 'actual_use', 'tot_assessed_value', 'property_owner', 'address', 'location', 'faas', 'tax_dec_pdf', 'tax_dec_filename', 'property_index_no', 'arp_no'], 'safe'],
-=======
-            [['td_no', 'property_index_no', 'survey_no', 'area', 'market_value', 'assessment_level', 'assessed_value', 'php', 'total_php', 'effectivity_quarter', 'effectivity_year', 'arp_no'], 'integer'],
-            [['contact_no', 'classification', 'actual_use', 'tot_assessed_value', 'property_owner', 'address'], 'safe'],
->>>>>>> origin/db_branch
+
         ];
     }
 
@@ -65,13 +62,10 @@ class TaxDeclarationSearch extends TaxDeclaration
         // grid filtering conditions
         $query->andFilterWhere([
             'td_no' => $this->td_no,
-<<<<<<< HEAD
+
             //'property_index_no' => $this->property_index_no,
             //'arp_no' => $this->arp_no,
-=======
-            'property_index_no' => $this->property_index_no,
-            'arp_no' => $this->arp_no,
->>>>>>> origin/db_branch
+
             'survey_no' => $this->survey_no,
             'area' => $this->area,
             'market_value' => $this->market_value,
@@ -95,10 +89,6 @@ class TaxDeclarationSearch extends TaxDeclaration
             ->andFilterWhere(['like', 'property_kind', $this->property_kind])
             ->andFilterWhere(['like', 'taxability', $this->taxability])
             ->andFilterWhere(['like', 'location', $this->location])
-<<<<<<< HEAD
-=======
-            ->andFilterWhere(['like', 'faas', $this->faas])
->>>>>>> origin/db_branch
             ->andFilterWhere(['like', 'cancels_arp_no', $this->cancels_arp_no])
             ->andFilterWhere(['like', 'beneficial_user', $this->beneficial_user])
             ->andFilterWhere(['like', 'user_tel_no', $this->user_tel_no])
@@ -111,16 +101,13 @@ class TaxDeclarationSearch extends TaxDeclaration
             ->andFilterWhere(['like', 'bound_east', $this->bound_east])
             ->andFilterWhere(['like', 'bound_west', $this->bound_west])
             ->andFilterWhere(['like', 'mun_assessor', $this->mun_assessor])
-<<<<<<< HEAD
             ->andFilterWhere(['like', 'prov_assessor', $this->prov_assessor])
             ->andFilterWhere(['like', 'faas', $this->faas])
             ->andFilterWhere(['like', 'tax_dec_pdf', $this->tax_dec_pdf])
             ->andFilterWhere(['like', 'tax_dec_filename', $this->tax_dec_filename])
             ->andFilterWhere(['like', 'property_index_no', $this->property_index_no])
             ->andFilterWhere(['like', 'arp_no', $this->arp_no]);
-=======
-            ->andFilterWhere(['like', 'prov_assessor', $this->prov_assessor]);
->>>>>>> origin/db_branch
+
 
         return $dataProvider;
     }

@@ -17,15 +17,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <h3><?= Html::encode($this->title) ?></h3>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-<<<<<<< HEAD
+   
+
     <p>
         <?= Html::a('Create Tax Declaration', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Upload Master List', ['upload'], ['class' => 'btn btn-success']) ?>
     </p>
-=======
-    <!--<p>
-        <?= Html::a('Create Tax Declaration', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>-->
->>>>>>> origin/db_branch
+     
+       
+    
+
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -40,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'property_index_no',
             'arp_no',
             'location',
+            
         ],
     ]); ?>
 </div>

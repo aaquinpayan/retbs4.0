@@ -15,11 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h3><?= Html::encode($this->title) ?></h3>
 
     <p style="float: right;">
-<<<<<<< HEAD
+
         <?= Html::a('Tax Declaration', ['report', 'id' => $model->td_no], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Field Appraisal & Assessment Sheet', ['report', 'id' => $model->td_no], ['class' => 'btn btn-primary']) ?>
     </p>
-=======
+
         <!--<?= Html::a('Update', ['update', 'id' => $model->td_no], ['class' => 'btn btn-primary']) ?> -->
         <?= Html::a('Download Tax Declaration', ['report', 'id' => $model->td_no], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Download FAAS', ['report', 'id' => $model->td_no], ['class' => 'btn btn-primary']) ?>
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?> -->
     </p>
     <p style="float: left;"><?= Html::a('Create Tax Declaration', ['create'], ['class' => 'btn btn-success']) ?></p>
->>>>>>> origin/db_branch
+
 
     <?= DetailView::widget([
         'model' => $model,
@@ -50,10 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'effectivity_year', //not sure
             'cancels_arp_no',
             'cancels_assessed_value',
-<<<<<<< HEAD
-=======
-            
->>>>>>> origin/db_branch
+
         ],
     ]) ?>
 
