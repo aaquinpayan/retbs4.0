@@ -93,21 +93,21 @@ class UsersController extends Controller
      * Lists all Users -> Taxpayer models.
      * @return mixed
      */
-    public function actionTaxpayer()
-    {
+    // public function actionTaxpayer()
+    // {
 
-        $this->layout = 'admin';
+    //     $this->layout = 'admin';
 
 
-        $searchModel = new UsersSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 4);
-        $dataProvider->pagination->pageSize=5; //not sure
+    //     $searchModel = new UsersSearch();
+    //     $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 4);
+    //     $dataProvider->pagination->pageSize=5; //not sure
 
-        return $this->render('taxpayer', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+    //     return $this->render('taxpayer', [
+    //         'searchModel' => $searchModel,
+    //         'dataProvider' => $dataProvider,
+    //     ]);
+    // }
 
     public function actionPassword()
     {

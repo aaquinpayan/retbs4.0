@@ -8,22 +8,45 @@ use Yii;
  * This is the model class for table "tax_declaration".
  *
  * @property int $td_no
- * @property int $property_index_no
- * @property int $owner_name
- * @property int $address
- * @property string $contact_no
+ * @property string $property_owner
+ * @property string $property_index_no
+ * @property string $arp_no
+ * @property string $address
+ * @property string $tel_no
  * @property int $survey_no
  * @property string $classification
  * @property int $area
- * @property int $market_value
+ * @property string $market_value
  * @property string $actual_use
- * @property int $assessment_level
- * @property int $assessment_value
- * @property int $php
- * @property int $total_php
+ * @property string $assessment_level
+ * @property string $assessed_value
+ * @property string $php
+ * @property string $total_php
  * @property string $tot_assessed_value
  * @property int $effectivity_quarter
  * @property int $effectivity_year
+ * @property string $property_kind
+ * @property string $location
+ * @property string $taxability
+ * @property string $faas
+ * @property string $cancels_arp_no
+ * @property int $cancels_assessed_value
+ * @property string $beneficial_user
+ * @property string $user_tel_no
+ * @property string $user_address
+ * @property string $otc
+ * @property string $oct
+ * @property string $date
+ * @property int $lot_no
+ * @property int $blk_no
+ * @property string $bound_south
+ * @property string $bound_north
+ * @property string $bound_east
+ * @property string $bound_west
+ * @property string $mun_assessor
+ * @property string $prov_assessor
+ * @property string $tax_dec_pdf
+ * @property string $tax_dec_filename
  */
 class TaxDeclaration extends \yii\db\ActiveRecord
 {
@@ -35,33 +58,35 @@ class TaxDeclaration extends \yii\db\ActiveRecord
         return 'tax_declaration';
     }
 
-
+    /**
+     * @inheritdoc
+     */
     public $taxdec_pdf;
     public $file;
     public $id;
     public $image;
      public $path;
 
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
+            [['property_owner', 'property_index_no', 'arp_no', 'address', 'survey_no', 'classification', 'area', 'market_value', 'actual_use', 'assessment_level', 'assessed_value', 'php', 'total_php', 'tot_assessed_value', 'effectivity_quarter', 'effectivity_year', 'property_kind', 'location', 'taxability', 'faas', 'bound_south', 'bound_north', 'bound_east', 'bound_west', 'mun_assessor', 'prov_assessor'], 'required'],
+            [['survey_no', 'area', 'effectivity_quarter', 'effectivity_year', 'cancels_assessed_value', 'lot_no', 'blk_no'], 'default', 'value' => null],
+            [['survey_no', 'area', 'effectivity_quarter', 'effectivity_year', 'cancels_assessed_value', 'lot_no', 'blk_no'], 'integer'],
+            [['market_value', 'assessed_value', 'php', 'total_php'], 'number'],
+            [['property_owner', 'property_index_no', 'address', 'classification', 'actual_use', 'assessment_level', 'tot_assessed_value', 'property_kind', 'location', 'taxability', 'faas', 'cancels_arp_no', 'beneficial_user', 'user_address', 'otc', 'oct', 'bound_south', 'bound_north', 'bound_east', 'bound_west', 'mun_assessor', 'prov_assessor'], 'string', 'max' => 32],
+            [['arp_no'], 'string', 'max' => 128],
+            [['tel_no', 'user_tel_no', 'date'], 'string', 'max' => 15],
+            [['tax_dec_pdf', 'tax_dec_filename'], 'string', 'max' => 255],
+            [['arp_no'], 'unique'],
+            [['property_index_no'], 'unique'],
+            [['property_owner'], 'unique'],
+            [['survey_no'], 'unique'],
 
-            /*[['property_index_no', 'survey_no', 'classification', 'area', 'market_value', 'actual_use', 'assessment_level', 'effectivity_quarter', 'effectivity_year', 'mun_assessor', 'prov_assessor'], 'required'],*/
-            [['survey_no', 'area', 'effectivity_quarter', 'effectivity_year', 'lot_no', 'blk_no'], 'integer'],
-            [['market_value', 'assessment_level', 'assessed_value', 'php', 'total_php'], 'decimal'],
-            //[['tel_no', 'user_tel_no', 'date'], 'string', 'max' => 15],
-            [['classification', 'actual_use', 'tot_assessed_value', 'address', 'location', 'taxability', 'property_kind', 'beneficial_user', 'user_address', 'otc', 'oct', 'bound_north', 'bound_east', 'bound_west', 'bound_south', 'mun_assessor', 'prov_assessor', 'faas', 'tax_dec_pdf', 'tax_dec_filename', 'property_index_no', 'arp_no'], 'string', 'max' => 32],
-            [['property_owner'], 'string', 'max' => 64],
-            [['taxdec_pdf'], 'safe'],
-            [['taxdec_pdf'], 'file', 'extensions'=>'pdf'],
+            // [['taxdec_pdf'], 'safe'],
+            // [['taxdec_pdf'], 'file', 'extensions'=>'pdf'],
             
-            [['file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'xlsx,xls'],
-        
-
-
+            // [['file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'xlsx,xls'],
         ];
     }
 
@@ -72,49 +97,49 @@ class TaxDeclaration extends \yii\db\ActiveRecord
     {
         return [
             'td_no' => 'TD No',
-            'property_index_no' => 'Property Index No',
             'property_owner' => 'Property Owner',
+            'property_index_no' => 'Property Index No',
+            'arp_no' => 'ARP No',
             'address' => 'Address',
             'tel_no' => 'Telephone No',
-            'beneficial_user' => 'Administrator/Beneficial User',
-            'user_tel_no' => 'Beneficial User Telephone No',
-            'user_address' => 'Beneficial User Address',
-            'otc' => 'OTC/TCT',
-            'oct' => 'OCT/CLOA No',
-            'date' => 'Dated',
-            'lot_no' => 'Lot No',
-            'blk_no' => 'Block No',
-            'bound_south' => 'South',
-            'bound_north' => 'North',
-            'bound_east' => 'East',
-            'bound_west' => 'West',
             'survey_no' => 'Survey No',
             'classification' => 'Classification',
             'area' => 'Area',
             'market_value' => 'Market Value',
             'actual_use' => 'Actual Use',
-            'assessment_level' => 'Assessment Level',
+            'assessment_level' => 'Assessment Level (%)',
             'assessed_value' => 'Assessed Value',
             'php' => 'PHP',
             'total_php' => 'Total PHP',
-            'tot_assessed_value' => 'Total Assessed Value',
+            'tot_assessed_value' => 'Total Assessed Value (Amount in Words)',
             'effectivity_quarter' => 'Effectivity Quarter',
             'effectivity_year' => 'Effectivity Year',
-            'location' => 'Location of Property',
-            'property_kind' => 'Kind',
+            'property_kind' => 'Kind of Property Assessed',
+            'location' => 'Location of Property (No. & Street, Brgy/District, Municipality & Province/City',
             'taxability' => 'Taxability',
+            'faas' => 'FAAS',
+            // 'cancels_arp_no' => 'Cancel ARP No.',
+            // 'cancels_assessed_value' => 'Cancel Assessed Value',
+            'beneficial_user' => 'Administrator/Beneficial User',
+            'user_tel_no' => 'Beneficial User Tel No',
+            'user_address' => 'Beneficial User Address',
+            'otc' => 'OTC/TCT',
+            'oct' => 'OCT/CLOA No',
+            'date' => 'Dated',
+            'lot_no' => 'Lot No',
+            'blk_no' => 'Blk No',
+            'bound_south' => 'South Boundary',
+            'bound_north' => 'North Boundary',
+            'bound_east' => 'East Boundary',
+            'bound_west' => 'West Boundary',
             'mun_assessor' => 'OIC-Municipal Assessor',
-            'prov_assessor' => 'Provincial Municipal Assessor',
-            'faas' => 'Field Apraisal & Assessment Sheet',
-            'tax_dec_filename' => 'Filename',
-            'tax_dec_pdf' => 'Tax Dec PDF',
-
+            'prov_assessor' => 'Provincial Assessor',
+            // 'tax_dec_pdf' => 'Tax Dec PDF',
+            // 'tax_dec_filename' => 'Tax Dec Filename',
         ];
     }
 
-    
-    
-    public function upload()
+   public function upload()
     {
         if ($this->validate()) {
             $this->file->saveAs('uploads/' . $this->file->baseName . '.' . $this->file->extension);

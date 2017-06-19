@@ -27,7 +27,7 @@ use app\assets\AppAsset;
                 ['label' => 'Statement of Account', 'icon' => 'home', 'url' => ['account-statement/index']],
                 ['label' => 'Accounts', 'icon' => 'user', 'items' => [
                     ['label' => 'Change Password', 'url' => ['users/password']],
-                    ['label' => 'Taxpayer', 'url' => ['users/taxpayer']],
+                    // ['label' => 'Taxpayer', 'url' => ['users/taxpayer']],
                     ['label' => 'Assessor', 'url' => ['users/assessor']],
                     ['label' => 'Treasurer', 'url' => ['users/treasurer']],
                     ['label' => 'Administrator', 'url' => ['users/admin']],

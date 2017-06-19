@@ -20,7 +20,7 @@ use kartik\widgets\FileInput;
 
 
 <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Upload Master List', ['class' => 'btn btn-success']) ?>
     	
     </div>
 

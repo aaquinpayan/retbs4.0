@@ -45,7 +45,7 @@ class Taxpayer extends \yii\db\ActiveRecord
     {
         return [
             'taxpayer_id' => 'Taxpayer ID',
-            'full_name' => 'Full Name',
+            'full_name' => 'Full Name (First, Middle, Last)',
             'contact_no' => 'Contact No',
             'gender' => 'Gender',
             'occupation' => 'Occupation',

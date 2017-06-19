@@ -18,10 +18,9 @@ class TaxDeclarationSearch extends TaxDeclaration
     public function rules()
     {
         return [
-
-            [['td_no', 'survey_no', 'area', 'market_value', 'assessment_level', 'assessed_value', 'php', 'total_php', 'effectivity_quarter', 'effectivity_year'], 'integer'],
-            [['contact_no', 'classification', 'actual_use', 'tot_assessed_value', 'property_owner', 'address', 'location', 'faas', 'tax_dec_pdf', 'tax_dec_filename', 'property_index_no', 'arp_no'], 'safe'],
-
+            [['td_no', 'survey_no', 'area', 'effectivity_quarter', 'effectivity_year', 'cancels_assessed_value', 'lot_no', 'blk_no'], 'integer'],
+            [['property_owner', 'property_index_no', 'arp_no', 'address', 'tel_no', 'classification', 'actual_use', 'assessment_level', 'tot_assessed_value', 'property_kind', 'location', 'taxability', 'faas', 'cancels_arp_no', 'beneficial_user', 'user_tel_no', 'user_address', 'otc', 'oct', 'date', 'bound_south', 'bound_north', 'bound_east', 'bound_west', 'mun_assessor', 'prov_assessor', 'tax_dec_pdf', 'tax_dec_filename'], 'safe'],
+            [['market_value', 'assessed_value', 'php', 'total_php'], 'number'],
         ];
     }
 
@@ -62,14 +61,9 @@ class TaxDeclarationSearch extends TaxDeclaration
         // grid filtering conditions
         $query->andFilterWhere([
             'td_no' => $this->td_no,
-
-            //'property_index_no' => $this->property_index_no,
-            //'arp_no' => $this->arp_no,
-
             'survey_no' => $this->survey_no,
             'area' => $this->area,
             'market_value' => $this->market_value,
-            'assessment_level' => $this->assessment_level,
             'assessed_value' => $this->assessed_value,
             'php' => $this->php,
             'total_php' => $this->total_php,
@@ -80,34 +74,34 @@ class TaxDeclarationSearch extends TaxDeclaration
             'blk_no' => $this->blk_no,
         ]);
 
-        $query->andFilterWhere(['like', 'tel_no', $this->tel_no])
-            ->andFilterWhere(['like', 'property_owner', $this->property_owner])
-            ->andFilterWhere(['like', 'address', $this->address])
-            ->andFilterWhere(['like', 'classification', $this->classification])
-            ->andFilterWhere(['like', 'actual_use', $this->actual_use])
-            ->andFilterWhere(['like', 'tot_assessed_value', $this->tot_assessed_value])
-            ->andFilterWhere(['like', 'property_kind', $this->property_kind])
-            ->andFilterWhere(['like', 'taxability', $this->taxability])
-            ->andFilterWhere(['like', 'location', $this->location])
-            ->andFilterWhere(['like', 'cancels_arp_no', $this->cancels_arp_no])
-            ->andFilterWhere(['like', 'beneficial_user', $this->beneficial_user])
-            ->andFilterWhere(['like', 'user_tel_no', $this->user_tel_no])
-            ->andFilterWhere(['like', 'user_address', $this->user_address])
-            ->andFilterWhere(['like', 'otc', $this->otc])
-            ->andFilterWhere(['like', 'oct', $this->oct])
-            ->andFilterWhere(['like', 'date', $this->date])
-            ->andFilterWhere(['like', 'bound_north', $this->bound_north])
-            ->andFilterWhere(['like', 'bound_south', $this->bound_south])
-            ->andFilterWhere(['like', 'bound_east', $this->bound_east])
-            ->andFilterWhere(['like', 'bound_west', $this->bound_west])
-            ->andFilterWhere(['like', 'mun_assessor', $this->mun_assessor])
-            ->andFilterWhere(['like', 'prov_assessor', $this->prov_assessor])
-            ->andFilterWhere(['like', 'faas', $this->faas])
-            ->andFilterWhere(['like', 'tax_dec_pdf', $this->tax_dec_pdf])
-            ->andFilterWhere(['like', 'tax_dec_filename', $this->tax_dec_filename])
-            ->andFilterWhere(['like', 'property_index_no', $this->property_index_no])
-            ->andFilterWhere(['like', 'arp_no', $this->arp_no]);
-
+        $query->andFilterWhere(['ilike', 'property_owner', $this->property_owner])
+            ->andFilterWhere(['ilike', 'property_index_no', $this->property_index_no])
+            ->andFilterWhere(['ilike', 'arp_no', $this->arp_no])
+            ->andFilterWhere(['ilike', 'address', $this->address])
+            ->andFilterWhere(['ilike', 'tel_no', $this->tel_no])
+            ->andFilterWhere(['ilike', 'classification', $this->classification])
+            ->andFilterWhere(['ilike', 'actual_use', $this->actual_use])
+            ->andFilterWhere(['ilike', 'assessment_level', $this->assessment_level])
+            ->andFilterWhere(['ilike', 'tot_assessed_value', $this->tot_assessed_value])
+            ->andFilterWhere(['ilike', 'property_kind', $this->property_kind])
+            ->andFilterWhere(['ilike', 'location', $this->location])
+            ->andFilterWhere(['ilike', 'taxability', $this->taxability])
+            ->andFilterWhere(['ilike', 'faas', $this->faas])
+            ->andFilterWhere(['ilike', 'cancels_arp_no', $this->cancels_arp_no])
+            ->andFilterWhere(['ilike', 'beneficial_user', $this->beneficial_user])
+            ->andFilterWhere(['ilike', 'user_tel_no', $this->user_tel_no])
+            ->andFilterWhere(['ilike', 'user_address', $this->user_address])
+            ->andFilterWhere(['ilike', 'otc', $this->otc])
+            ->andFilterWhere(['ilike', 'oct', $this->oct])
+            ->andFilterWhere(['ilike', 'date', $this->date])
+            ->andFilterWhere(['ilike', 'bound_south', $this->bound_south])
+            ->andFilterWhere(['ilike', 'bound_north', $this->bound_north])
+            ->andFilterWhere(['ilike', 'bound_east', $this->bound_east])
+            ->andFilterWhere(['ilike', 'bound_west', $this->bound_west])
+            ->andFilterWhere(['ilike', 'mun_assessor', $this->mun_assessor])
+            ->andFilterWhere(['ilike', 'prov_assessor', $this->prov_assessor])
+            ->andFilterWhere(['ilike', 'tax_dec_pdf', $this->tax_dec_pdf])
+            ->andFilterWhere(['ilike', 'tax_dec_filename', $this->tax_dec_filename]);
 
         return $dataProvider;
     }
