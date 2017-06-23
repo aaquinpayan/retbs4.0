@@ -75,9 +75,9 @@ class TaxDeclaration extends \yii\db\ActiveRecord
             [['survey_no', 'area', 'effectivity_quarter', 'effectivity_year', 'cancels_assessed_value', 'lot_no', 'blk_no'], 'integer'],
             [['market_value', 'assessed_value', 'php', 'total_php'], 'number'],
             [['property_owner', 'property_index_no', 'address', 'classification', 'actual_use', 'assessment_level', 'tot_assessed_value', 'property_kind', 'location', 'taxability', 'faas', 'cancels_arp_no', 'beneficial_user', 'user_address', 'otc', 'oct', 'bound_south', 'bound_north', 'bound_east', 'bound_west', 'mun_assessor', 'prov_assessor'], 'string', 'max' => 32],
-            [['arp_no'], 'string', 'max' => 128],
+            [['arp_no', 'viewName'], 'string', 'max' => 128],
             [['tel_no', 'user_tel_no', 'date'], 'string', 'max' => 15],
-            [['tax_dec_pdf', 'tax_dec_filename'], 'string', 'max' => 255],
+            // [['tax_dec_pdf', 'tax_dec_filename'], 'string', 'max' => 255],
             [['arp_no'], 'unique'],
             [['property_index_no'], 'unique'],
             [['property_owner'], 'unique'],
@@ -143,7 +143,7 @@ class TaxDeclaration extends \yii\db\ActiveRecord
     {
         if ($this->validate()) {
             $this->file->saveAs('uploads/' . $this->file->baseName . '.' . $this->file->extension);
-            
+            $this->faas->saveAs('faas_uploads/' . $this->faas->baseName . '.' . $this->faas->extension);
             return true;
         } else {
             return false;

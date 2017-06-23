@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * TaxDeclarationController implements the CRUD actions for TaxDeclaration model.
@@ -69,13 +71,56 @@ class TaxDeclarationController extends Controller
         $model = new TaxDeclaration();
         $this->layout = 'admin';
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->td_no]);
+        
+        if ($model->load(Yii::$app->request->post())) {
+            $model->faas = UploadedFile::getInstance($model, 'faas');
+            $model->faas->saveAs('faas_uploads/' . $model->faas->baseName . '.' . $model->faas->extension);
+            $model->faas = $model->faas->name;
+            // if ($model->validate()) {
+                
+
+            // }else {
+            //     // validation failed: $errors is an array containing error messages
+            //     $errors = $model->errors;
+            //     print_r( $errors);
+            // }
+            // print_r(Yii::$app->request->post());
+
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->td_no]);
+            }    
+
         } else {
+            // echo "<br>" . "<br>" . $imodel->faas;
             return $this->render('create', [
                 'model' => $model,
             ]);
         }
+    }
+
+     public function actionUpload()
+    {
+         $this->layout = 'admin';
+
+        $model = new UploadForm();
+
+
+        if (Yii::$app->request->isPost) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+            // $model->faas = UploadedFile::getInstance($model, 'faas');
+            
+            if ($model->validate()) { 
+
+                $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
+                // $model->faas->saveAs('faas_uploads/' . $model->faas->baseName . '.' . $model->faas->extension);
+
+
+            }
+        }
+        
+        
+         //$this->render('masterlist', array('viewName' => $imodel->viewName));
+        return $this->render('upload', ['model' => $model]);
     }
 
     /**
@@ -128,24 +173,19 @@ class TaxDeclarationController extends Controller
         }
     }
 
-    public function actionUpload()
+   
+
+     public function actionMasterlist($viewName)
     {
-         $this->layout = 'admin';
-
-        $model = new UploadForm();
-
-        if (Yii::$app->request->isPost) {
-            $model->file = UploadedFile::getInstance($model, 'file');
-            
-
-            if ($model->validate()) { 
-
-                $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
-
-
-            }
-        }
         
-        return $this->render('upload', ['model' => $model]);
+        // $this->layout = 'admin';
+        // $this->load($viewName);
+        // echo "<br></br><br></br>" . $viewName;
+         return $this->render('masterlist', ['viewName' => $viewName]);
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //     return $this->redirect(['view', 'id' => $model->td_no]);
+        // } else {
+            // return $this->render('masterlist',  ['model' => $model,]);
+        // }
     }
 }

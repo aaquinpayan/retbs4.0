@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'arp_no')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'address')->textarea()->label('Address') ?>
 
     <?= $form->field($model, 'tel_no')->textInput(['maxlength' => true]) ?>
 
@@ -46,17 +46,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'effectivity_year')->textInput() ?>
 
-    <?= $form->field($model, 'property_kind')->textInput(['maxlength' => true]) ?>
+    <?php echo $form->field($model, 'property_kind')->dropDownList(['Land' => 'Land', 'Building' => 'Building', 'Machinery' => 'Machinery', 'Others' => 'Others']); ?>
 
-    <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'location')->textarea()->label('Location (Num & Street, Brgy/District, Municipality & Province/City)') ?>
 
-    <?= $form->field($model, 'taxability')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'taxability')->radioList(array(1=>'Taxable', 2=>'Exempt')); ?>
 
-    <?= $form->field($model, 'faas')->textInput(['maxlength' => true]) ?>
+    
 
-    <?= $form->field($model, 'cancels_arp_no')->textInput(['maxlength' => true]) ?>
+   <!--  <?= $form->field($model, 'cancels_arp_no')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cancels_assessed_value')->textInput() ?>
+    <?= $form->field($model, 'cancels_assessed_value')->textInput() ?> -->
 
     <?= $form->field($model, 'beneficial_user')->textInput(['maxlength' => true]) ?>
 
@@ -86,9 +86,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'prov_assessor')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tax_dec_pdf')->textInput(['maxlength' => true]) ?>
+    <!-- <?= $form->field($model, 'tax_dec_pdf')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tax_dec_filename')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'tax_dec_filename')->textInput(['maxlength' => true]) ?> -->
+    <?= $form->field($model, 'faas')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

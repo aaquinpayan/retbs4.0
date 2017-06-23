@@ -19,7 +19,7 @@ use kartik\widgets\FileInput;
     <?= $form->field($model, 'file')->fileInput() ?>
 
 
-<div class="form-group">
+	<div class="form-group">
         <?= Html::submitButton('Upload Master List', ['class' => 'btn btn-success']) ?>
     	
     </div>

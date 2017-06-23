@@ -50,8 +50,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'location',
             'taxability',
             'faas',
-            'cancels_arp_no',
-            'cancels_assessed_value',
+            // 'cancels_arp_no',
+            // 'cancels_assessed_value',
             'beneficial_user',
             'user_tel_no',
             'user_address',
@@ -66,8 +66,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'bound_west',
             'mun_assessor',
             'prov_assessor',
-            'tax_dec_pdf',
-            'tax_dec_filename',
+            // 'tax_dec_pdf',
+            // 'tax_dec_filename',
         ],
     ]) ?>
 

@@ -15,6 +15,7 @@ class UploadForm extends Model
  * @var UploadedFile|Null file attribute
  */
 public $file;
+// public $faas;
 public $id;
 /**
  * @return array the validation rules.
@@ -22,8 +23,9 @@ public $id;
 public function rules()
 {
     return [
-        [['file'], 'file'],
         [['file'], 'file', 'extensions'=>'xlsx, xls'],
+        // [['faas'], 'faas', 'extensions' => 'jpg,png'], 
+
     ];
 }
 public function actionDownload($id) 

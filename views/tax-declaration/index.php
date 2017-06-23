@@ -13,11 +13,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="tax-declaration-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <?php 
+        // echo $this->render('_search', ['model' => $searchModel]); ?>
+    
     <p>
         <?= Html::a('Create Tax Declaration', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Master List', ['upload'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Upload Master List', ['upload'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
