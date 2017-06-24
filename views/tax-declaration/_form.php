@@ -40,7 +40,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'total_php')->textInput() ?>
 
-    <?= $form->field($model, 'tot_assessed_value')->textInput(['maxlength' => true]) ?>
+    <!-- <?= $form->field($model, 'tot_assessed_value')->textInput(['maxlength' => true]) ?> -->
 
     <?= $form->field($model, 'effectivity_quarter')->textInput() ?>
 
@@ -50,7 +50,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'location')->textarea()->label('Location (Num & Street, Brgy/District, Municipality & Province/City)') ?>
 
-    <?= $form->field($model, 'taxability')->radioList(array(1=>'Taxable', 2=>'Exempt')); ?>
+    <?= $form->field($model, 'taxability')->radioList(array('Taxable'=>'Taxable', 'Exempt'=>'Exempt')); ?>
 
     
 
@@ -89,7 +89,9 @@ use yii\widgets\ActiveForm;
     <!-- <?= $form->field($model, 'tax_dec_pdf')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'tax_dec_filename')->textInput(['maxlength' => true]) ?> -->
+
     <?= $form->field($model, 'faas')->fileInput() ?>
+     <?= $form->field($model, 'taxdec')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\helpers\Html;
 use yii\helpers\Url;
+// use NumberToWords\NumberToWords;
+
 
 /**
  * TaxDeclarationController implements the CRUD actions for TaxDeclaration model.
@@ -56,6 +58,21 @@ class TaxDeclarationController extends Controller
     public function actionView($id)
     {
         $this->layout = 'admin';
+        $model = $this->findModel($id);
+        
+
+        // if ($model->validate()) {
+                
+
+            // }else {
+            //     // validation failed: $errors is an array containing error messages
+            //     $errors = $model->errors;
+            //     print_r( $errors);
+            // }
+        if($model->taxability == 1) $model->taxability = "Taxable";
+            else $model->taxability = "Exempt";
+
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -74,8 +91,28 @@ class TaxDeclarationController extends Controller
         
         if ($model->load(Yii::$app->request->post())) {
             $model->faas = UploadedFile::getInstance($model, 'faas');
+            $model->taxdec = UploadedFile::getInstance($model, 'taxdec');
+
             $model->faas->saveAs('faas_uploads/' . $model->faas->baseName . '.' . $model->faas->extension);
+            $model->taxdec->saveAs('taxdec_uploads/' . $model->taxdec->baseName . '.' . $model->taxdec->extension);
+
             $model->faas = $model->faas->name;
+            $model->taxdec = $model->taxdec->name;
+
+            // create the number to words "manager" class
+            $numberToWords = new NumberToWords();
+
+            // build a new number transformer using the RFC 3066 language identifier
+            $currencyTransformer = $numberToWords->getCurrencyTransformer('en');
+
+            $model->tot_assessed_value = $currencyTransformer->toWords(($model->php)*100, 'PESO');
+
+
+            // if($model->property_kind == 'a') $model->property_kind = "Land";
+            // else if($model->property_kind == 'b') $model->property_kind = "Building";
+            // else if($model->property_kind == 'c') $model->property_kind = "Machinery";
+            // else $model->property_kind = "Others";
+
             // if ($model->validate()) {
                 
 
@@ -134,8 +171,75 @@ class TaxDeclarationController extends Controller
         $this->layout = 'admin';
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->td_no]);
+        $model->php= str_replace(",","",$model->php);
+        $model->php=str_replace("$","",$model->php);
+        $model->assessed_value= str_replace(",","",$model->assessed_value);
+        $model->assessed_value=str_replace("$","",$model->assessed_value);
+        $model->total_php= str_replace(",","",$model->total_php);
+        $model->total_php=str_replace("$","",$model->total_php);
+        $model->market_value= str_replace(",","",$model->market_value);
+        $model->market_value=str_replace("$","",$model->market_value);
+
+        switch($model->property_kind){
+            case 'Land' : $model->property_kind = "Land";
+            case 'Building' : $model->property_kind = "Building";
+            case 'Machinery' : $model->property_kind = "Machinery";
+            case 'Others' : $model->property_kind = "Others";
+        }
+        
+        // if($model->property_kind == 'Land') $model->property_kind = "Land";
+        // else if($model->property_kind == 'Building') $model->property_kind = "Building";
+        // else if($model->property_kind == 'Machinery') $model->property_kind = "Machinery";
+        // else if($model->property_kind == 'Others') $model->property_kind = "Others";
+        // echo "<br/>" . "<br/>" . "<br/>" . $model->property_kind;
+
+        if($model->taxability == 'Taxable') $model->taxability = 'Taxable';
+        else $model->taxability = 'Exempt';
+
+        
+        $originalFaas = $model->faas;
+        $originalTaxdec = $model->taxdec;
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            $uploadedFaas =  UploadedFile::getInstance($model, 'faas');
+            $uploadedTaxdec = UploadedFile::getInstance($model, 'taxdec');
+
+            $model->attributes = Yii::$app->request->post();
+            
+            if (isset($uploadedFaas) && isset($uploadedTaxdec)){
+                $model->faas = $uploadedFaas;
+                $model->taxdec = $uploadedTaxdec;
+
+                $model->faas->saveAs('faas_uploads/' . $model->faas->baseName . '.' . $model->faas->extension);
+                $model->taxdec->saveAs('taxdec_uploads/' . $model->taxdec->baseName . '.' . $model->taxdec->extension);
+
+                $model->faas = $uploadedFaas->name;
+                $model->taxdec = $uploadedTaxdec->name;
+            }else if(isset($uploadedFaas) && !isset($uploadedTaxdec)){
+                $model->faas = $uploadedFaas;
+                $model->taxdec = $originalTaxdec;
+
+                $model->faas->saveAs('faas_uploads/' . $model->faas->baseName . '.' . $model->faas->extension);
+                $model->faas = $uploadedFaas->name;
+            }else if(!isset($uploadedFaas) && isset($uploadedTaxdec)){
+                $model->taxdec = $uploadedTaxdec;
+                $model->faas = $originalFaas;
+
+                $model->taxdec->saveAs('taxdec_uploads/' . $model->taxdec->baseName . '.' . $model->taxdec->extension);
+                $model->taxdec = $uploadedTaxdec->name;
+            }else{
+                $model->faas = $originalFaas;
+                $model->taxdec = $originalTaxdec;
+            }
+            
+            // $model->faas = $model->faas->name;
+            // $model->taxdec = $model->taxdec->name;
+           
+
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->td_no]);
+            }
         } else {
             return $this->render('update', [
                 'model' => $model,
