@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -12,7 +13,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'property_owner')->textInput(['maxlength' => true]) ?>
+    <?php $taxpayers = ArrayHelper::map(\app\models\Taxpayer::find()->all(), 'full_name', 'full_name'); ?>
+
+    <?= $form->field($model, 'property_owner')->dropDownList($taxpayers,['options' => ['property_owner' => 'full_name']],['prompt' => "Select Property Owner"]); ?>
 
     <?= $form->field($model, 'property_index_no')->textInput(['maxlength' => true]) ?>
 

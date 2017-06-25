@@ -31,9 +31,10 @@ class Taxpayer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['full_name', 'contact_no', 'gender', 'occupation', 'address', 'payment_status'], 'required'],
+            [['first_name', 'middle_name', 'last_name', 'contact_no', 'gender', 'occupation', 'address', 'payment_status'], 'required'],
             [['full_name'], 'string', 'max' => 255],
             [['contact_no'], 'string', 'max' => 15],
+            [['first_name', 'middle_name', 'last_name'], 'string', 'max' => 20],
             [['gender', 'occupation', 'address', 'payment_status'], 'string', 'max' => 32],
         ];
     }
@@ -45,7 +46,7 @@ class Taxpayer extends \yii\db\ActiveRecord
     {
         return [
             'taxpayer_id' => 'Taxpayer ID',
-            'full_name' => 'Full Name (First, Middle, Last)',
+            'full_name' => 'Full Name',
             'contact_no' => 'Contact No',
             'gender' => 'Gender',
             'occupation' => 'Occupation',

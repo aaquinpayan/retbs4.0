@@ -76,14 +76,8 @@ class TaxDeclarationController extends Controller
 
         
         if ($model->load(Yii::$app->request->post())) {
-            $model->faas = UploadedFile::getInstance($model, 'faas');
-            $model->taxdec = UploadedFile::getInstance($model, 'taxdec');
+            
 
-            $model->faas->saveAs('faas_uploads/' . $model->faas->baseName . '.' . $model->faas->extension);
-            $model->taxdec->saveAs('taxdec_uploads/' . $model->taxdec->baseName . '.' . $model->taxdec->extension);
-
-            $model->faas = $model->faas->name;
-            $model->taxdec = $model->taxdec->name;
 
             // create the number to words "manager" class
             $numberToWords = new NumberToWords();
@@ -93,14 +87,21 @@ class TaxDeclarationController extends Controller
 
             $model->tot_assessed_value = $currencyTransformer->toWords(($model->php)*100, 'PESO');
 
-            // if ($model->validate()) {
-                
+            if ($model->validate()) {
+                $model->faas = UploadedFile::getInstance($model, 'faas');
+                $model->taxdec = UploadedFile::getInstance($model, 'taxdec');
 
-            // }else {
-            //     // validation failed: $errors is an array containing error messages
-            //     $errors = $model->errors;
-            //     print_r( $errors);
-            // }
+                $model->faas->saveAs('faas_uploads/' . $model->faas->baseName . '.' . $model->faas->extension);
+                $model->taxdec->saveAs('taxdec_uploads/' . $model->taxdec->baseName . '.' . $model->taxdec->extension);
+
+                $model->faas = $model->faas->name;
+                $model->taxdec = $model->taxdec->name;
+
+            }else {
+                // validation failed: $errors is an array containing error messages
+                $errors = $model->errors;
+                print_r( $errors);
+            }
             // print_r(Yii::$app->request->post());
 
             if ($model->save()) {
@@ -170,11 +171,6 @@ class TaxDeclarationController extends Controller
             case 'Others                          ' : $model->property_kind = 'Others';
         }
         
-        // if($model->property_kind == 'Land') $model->property_kind = "Land";
-        // else if($model->property_kind == 'Building') $model->property_kind = "Building";
-        // else if($model->property_kind == 'Machinery') $model->property_kind = "Machinery";
-        // else if($model->property_kind == 'Others') $model->property_kind = "Others";
-        // echo "<br/>" . "<br/>" . "<br/>" . $model->property_kind;
 
         if($model->taxability == 'Taxable                         ') $model->taxability = 'Taxable';
         else $model->taxability = 'Exempt';

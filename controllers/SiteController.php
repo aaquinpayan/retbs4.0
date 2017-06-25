@@ -2,8 +2,6 @@
 
 namespace app\controllers;
 
-use app\controllers\UploadForm;
-use yii\web\UploadedFile;
 
 use Yii;
 use yii\filters\AccessControl;
@@ -78,6 +76,8 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
+
+        echo "<br/>" . "<br/>" . "<br/>" . $model->username;
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
             //return $this->render('//taxpayer/index');

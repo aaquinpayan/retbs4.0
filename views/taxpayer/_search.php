@@ -19,6 +19,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'full_name') ?>
 
+    <?= $form->field($model, 'first_name') ?>
+
+    <?= $form->field($model, 'middle_name') ?>
+
+    <?= $form->field($model, 'last_name') ?>
+
     <?= $form->field($model, 'contact_no') ?>
 
     <?= $form->field($model, 'gender') ?>

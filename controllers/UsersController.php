@@ -113,6 +113,10 @@ class UsersController extends Controller
     {
 
         $this->layout = 'admin';
+        $model = new Users();
+        return $this->render('password', [
+                'model' => $model,
+            ]);
 
     }
 
@@ -144,7 +148,9 @@ class UsersController extends Controller
 
         $model = new Users();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->full_name = $model->first_name . ' ' . $model->middle_name . ' ' . $model->last_name;
+            if($model->save())
             return $this->redirect(['view', 'id' => $model->user_id]);
         } else {
             return $this->render('create', [
@@ -166,7 +172,9 @@ class UsersController extends Controller
 
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->full_name = $model->first_name . ' ' . $model->middle_name . ' ' . $model->last_name;
+             if($model->save())
             return $this->redirect(['view', 'id' => $model->user_id]);
         } else {
             return $this->render('update', [

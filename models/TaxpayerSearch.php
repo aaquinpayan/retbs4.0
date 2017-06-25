@@ -19,7 +19,7 @@ class TaxpayerSearch extends Taxpayer
     {
         return [
             [['taxpayer_id'], 'integer'],
-            [['full_name', 'contact_no', 'gender', 'occupation', 'address', 'payment_status'], 'safe'],
+            [['full_name', 'first_name', 'middle_name', 'last_name', 'contact_no', 'gender', 'occupation', 'address', 'payment_status'], 'safe'],
         ];
     }
 
@@ -63,6 +63,9 @@ class TaxpayerSearch extends Taxpayer
         ]);
 
         $query->andFilterWhere(['like', 'full_name', $this->full_name])
+            ->andFilterWhere(['like', 'first_name', $this->first_name])
+            ->andFilterWhere(['like', 'middle_name', $this->middle_name])
+            ->andFilterWhere(['like', 'last_name', $this->last_name])
             ->andFilterWhere(['like', 'contact_no', $this->contact_no])
             ->andFilterWhere(['like', 'gender', $this->gender])
             ->andFilterWhere(['like', 'occupation', $this->occupation])

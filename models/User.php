@@ -2,64 +2,33 @@
 
 namespace app\models;
 
-use Yii;
-use yii\db\ActiveRecord;
-
-
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
+    public $id;
+    public $username;
+    public $password;
+    public $authKey;
+    public $accessToken;
+
     
-    public static function tableName()
-    {
-        return 'user';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['name', 'username', 'password', 'user_type'], 'required'],
-            [['name'], 'string'],
-            [['user_type'], 'string', 'max' => 10],
-            [['username', 'password'], 'string', 'max' => 20],
-        ];
-    }
-
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'name' => 'Name',
-            'user_id' => 'User ID',
-            'username' => 'Username',
-            'password' => 'Password',
-            'user_type' => 'User Type',
-        ];
-
-    /*private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];*/
-    }
+    // private static $users = [
+    //     '100' => [
+    //         'id' => '100',
+    //         'username' => 'admin',
+    //         'password' => 'admin',
+    //         'authKey' => 'test100key',
+    //         'accessToken' => '100-token',
+    //     ],
+    //     '101' => [
+    //         'id' => '101',
+    //         'username' => 'demo',
+    //         'password' => 'demo',
+    //         'authKey' => 'test101key',
+    //         'accessToken' => '101-token',
+    //     ],
+    // ];
     
-
+    
 
     /**
      * @inheritdoc
