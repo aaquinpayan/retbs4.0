@@ -58,21 +58,7 @@ class TaxDeclarationController extends Controller
     public function actionView($id)
     {
         $this->layout = 'admin';
-        $model = $this->findModel($id);
         
-
-        // if ($model->validate()) {
-                
-
-            // }else {
-            //     // validation failed: $errors is an array containing error messages
-            //     $errors = $model->errors;
-            //     print_r( $errors);
-            // }
-        if($model->taxability == 1) $model->taxability = "Taxable";
-            else $model->taxability = "Exempt";
-
-
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -106,12 +92,6 @@ class TaxDeclarationController extends Controller
             $currencyTransformer = $numberToWords->getCurrencyTransformer('en');
 
             $model->tot_assessed_value = $currencyTransformer->toWords(($model->php)*100, 'PESO');
-
-
-            // if($model->property_kind == 'a') $model->property_kind = "Land";
-            // else if($model->property_kind == 'b') $model->property_kind = "Building";
-            // else if($model->property_kind == 'c') $model->property_kind = "Machinery";
-            // else $model->property_kind = "Others";
 
             // if ($model->validate()) {
                 
@@ -179,12 +159,15 @@ class TaxDeclarationController extends Controller
         $model->total_php=str_replace("$","",$model->total_php);
         $model->market_value= str_replace(",","",$model->market_value);
         $model->market_value=str_replace("$","",$model->market_value);
-
+        echo "<br/>" . "<br/>" . "<br/>" . var_dump('Land                            ');
         switch($model->property_kind){
-            case 'Land' : $model->property_kind = "Land";
-            case 'Building' : $model->property_kind = "Building";
-            case 'Machinery' : $model->property_kind = "Machinery";
-            case 'Others' : $model->property_kind = "Others";
+            case 'Land                            ' : $model->property_kind = 'Land';
+            break;
+            case 'Building                        ' : $model->property_kind = 'Building';
+            break;
+            case 'Machinery                       ' : $model->property_kind = 'Machinery';
+            break;
+            case 'Others                          ' : $model->property_kind = 'Others';
         }
         
         // if($model->property_kind == 'Land') $model->property_kind = "Land";
@@ -193,7 +176,7 @@ class TaxDeclarationController extends Controller
         // else if($model->property_kind == 'Others') $model->property_kind = "Others";
         // echo "<br/>" . "<br/>" . "<br/>" . $model->property_kind;
 
-        if($model->taxability == 'Taxable') $model->taxability = 'Taxable';
+        if($model->taxability == 'Taxable                         ') $model->taxability = 'Taxable';
         else $model->taxability = 'Exempt';
 
         

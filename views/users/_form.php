@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'user_type')->radioList(array('1'=>'Admin', 2=>'Assessor', 3=>'Treasurer')); ?>
+    <?= $form->field($model, 'user_type')->radioList(array('1'=>'Admin', '2'=>'Assessor', '3'=>'Treasurer')); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

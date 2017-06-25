@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'contact_no')->textInput(['maxlength' => true]) ?>
 
-     <?= $form->field($model, 'gender')->radioList(array('F'=>'Female', 'M' =>'Male')); ?>
+     <?= $form->field($model, 'gender')->radioList(array('Female'=>'Female', 'Male' =>'Male')); ?>
 
     <?= $form->field($model, 'occupation')->textInput(['maxlength' => true]) ?>
 

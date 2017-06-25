@@ -55,6 +55,7 @@ class TaxpayerController extends Controller
     public function actionView($id)
     {
         $this->layout = 'admin';
+        
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -72,8 +73,8 @@ class TaxpayerController extends Controller
 
         $model = new Taxpayer();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->taxpayer_id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()) return $this->redirect(['view', 'id' => $model->taxpayer_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -91,8 +92,19 @@ class TaxpayerController extends Controller
     {
         $this->layout = 'admin';
         $model = $this->findModel($id);
+         // echo "<br/>" . "<br/>" . "<br/>" ;
+        
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        // var_dump('Paid                            ');
+        if($model->gender == 'Female                          ') $model->gender = 'Female';
+        else $model->gender = 'Male';
+
+        if($model->payment_status == 'Paid                            ') $model->payment_status = 'Paid';
+        else $model->payment_status = 'Not Paid';
+
+
+        if ($model->load(Yii::$app->request->post())) {
+             if($model->save())
             return $this->redirect(['view', 'id' => $model->taxpayer_id]);
         } else {
             return $this->render('update', [

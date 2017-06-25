@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'address',
             //'payment_status',
 
-            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 </div>
