@@ -22,7 +22,7 @@ use app\assets\AppAsset;
             'heading' => 'Administrator', //dynamic - user_type
             'items' => [
                 ['label' => 'Taxpayer Profiles', 'icon' => 'user', 'url' => ['taxpayer/index']],
-                ['label' => 'Real Estate Properties', 'icon' => 'home', 'url' => ['property/index']],
+                // ['label' => 'Real Estate Properties', 'icon' => 'home', 'url' => ['property/index']],
                 ['label' => 'Tax Declaration', 'icon' => 'home', 'url' => ['tax-declaration/index']],
                 ['label' => 'Statement of Account', 'icon' => 'home', 'url' => ['account-statement/index']],
                 ['label' => 'Accounts', 'icon' => 'user', 'items' => [

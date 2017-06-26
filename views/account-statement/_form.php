@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
+use kartik\typeahead\TypeaheadBasic;
+use kartik\typeahead\Typeahead;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\AccountStatement */
 /* @var $form yii\widgets\ActiveForm */
@@ -12,27 +15,12 @@ use yii\helpers\ArrayHelper;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'td_no')->textInput() ?>
-
-   <!-- <?= $form->field($model, 'barangay')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'year_unpaid')->textInput() ?>
-
-    <?= $form->field($model, 'percentage')->textInput() ?>
-
-    <?= $form->field($model, 'basic')->textInput() ?>
-
-    <?= $form->field($model, 'penalty_basic')->textInput() ?>
-
-    <?= $form->field($model, 'sef')->textInput() ?>
-
-    <?= $form->field($model, 'penalty_sef')->textInput() ?>
-
-    <?= $form->field($model, 'total_amount')->textInput() ?>
-
-    <?= $form->field($model, 'grand_total')->textInput() ?>
-
-    <?= $form->field($model, 'validity')->textInput() ?> -->
+    <?php $data = ArrayHelper::map(\app\models\TaxDeclaration::find()->all(), 'arp_no', 'arp_no');?>
+    <?= $form->field($model, 'arp_no')->widget(TypeaheadBasic::className(), [
+            'data' => $data,
+            'pluginOptions' => ['highlight' => true],
+            'options' => ['placeholder' => 'Select Tax Declaration No.'],
+        ]); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

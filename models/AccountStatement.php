@@ -37,9 +37,12 @@ class AccountStatement extends \yii\db\ActiveRecord
     {
         return [
             //[['td_no', 'barangay', 'year_unpaid', 'percentage', 'basic', 'penalty_basic', 'sef', 'penalty_sef', 'total_amount', 'grand_total', 'validity'], 'required'],
-            [['td_no', 'year_unpaid', 'percentage', 'basic', 'penalty_basic', 'sef', 'penalty_sef', 'total_amount', 'grand_total'], 'integer'],
+            [[ 'year_unpaid', 'percentage'], 'integer'],
+            [['basic', 'penalty_basic', 'sef', 'penalty_sef', 'total_amount', 'grand_total', 'assessed_value'], 'number'],
             //[['validity'], 'safe'],
-            [['barangay'], 'string', 'max' => 32],
+            [['arp_no'], 'string', 'max' => 128],
+             [['property_owner'], 'string', 'max' => 255],
+            [['barangay', 'address'], 'string', 'max' => 32],
         ];
     }
 
@@ -50,17 +53,19 @@ class AccountStatement extends \yii\db\ActiveRecord
     {
         return [
             'soa_id' => 'SOA ID',
-            'td_no' => 'TD No',
+            'arp_no' => 'TD/ARP No',
             'barangay' => 'Barangay',
-            'year_unpaid' => 'Year Unpaid',
-            'percentage' => 'Percentage',
+            'property_owner' => 'Property Owner',
+            'address' => 'Address',
+            'year_unpaid' => 'Taon na di Bayad',
+            'percentage' => 'Porsyento ng Rekano (%)',
             'basic' => 'Basic',
             'penalty_basic' => 'Penalty (Basic)',
             'sef' => 'SEF',
             'penalty_sef' => 'Penalty (SEF)',
             'total_amount' => 'Total Amount',
-            'grand_total' => 'Grand Total',
-            //'validity' => 'Validity',
+            'grand_total' => 'Kabuuang Bayarin',
+            'assessed_value' => 'Kabuuang Halaga',
         ];
     }
 }

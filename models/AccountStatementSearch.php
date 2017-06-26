@@ -18,9 +18,9 @@ class AccountStatementSearch extends AccountStatement
     public function rules()
     {
         return [
-            [['soa_id', 'td_no', 'year_unpaid', 'percentage', 'basic', 'penalty_basic', 'sef', 'penalty_sef', 'total_amount', 'grand_total'], 'integer'],
-            //[['barangay', 'validity'], 'safe'],
-            [['barangay'], 'safe'],
+            [['soa_id', 'year_unpaid', 'percentage'], 'integer'],
+            [['basic', 'penalty_basic', 'sef', 'penalty_sef', 'total_amount', 'grand_total', 'assessed_value'], 'number'],
+            [['barangay', 'arp_no', 'property_owner', 'address'], 'safe'],
         ];
     }
 
@@ -61,7 +61,9 @@ class AccountStatementSearch extends AccountStatement
         // grid filtering conditions
         $query->andFilterWhere([
             'soa_id' => $this->soa_id,
-            'td_no' => $this->td_no,
+            'property_owner' => $this->property_owner,
+            'address' => $this->address,
+            'arp_no' => $this->arp_no,
             'year_unpaid' => $this->year_unpaid,
             'percentage' => $this->percentage,
             'basic' => $this->basic,
@@ -70,7 +72,7 @@ class AccountStatementSearch extends AccountStatement
             'penalty_sef' => $this->penalty_sef,
             'total_amount' => $this->total_amount,
             'grand_total' => $this->grand_total,
-            //'validity' => $this->validity,
+            'assessed_value' => $this->assessed_value,
         ]);
 
         $query->andFilterWhere(['like', 'barangay', $this->barangay]);

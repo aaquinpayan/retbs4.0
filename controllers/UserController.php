@@ -50,7 +50,7 @@ class UserController extends Controller
 
 
         $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 1);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 'admin');
         $dataProvider->pagination->pageSize=5; //not sure
 
         return $this->render('admin', [
@@ -70,7 +70,7 @@ class UserController extends Controller
 
 
         $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 2);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 'assessor');
         $dataProvider->pagination->pageSize=5; //not sure
 
         return $this->render('assessor', [
@@ -90,7 +90,7 @@ class UserController extends Controller
 
 
         $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 3);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 'treasurer');
         $dataProvider->pagination->pageSize=5; //not sure
 
         return $this->render('treasurer', [

@@ -15,11 +15,13 @@ use yii\widgets\ActiveForm;
 
     <?php $taxpayers = ArrayHelper::map(\app\models\Taxpayer::find()->all(), 'full_name', 'full_name'); ?>
 
+        <?= $form->field($model, 'arp_no')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'property_owner')->dropDownList($taxpayers,['options' => ['property_owner' => 'full_name']],['prompt' => "Select Property Owner"]); ?>
+    <?= $form->field($model, 'property_index_no')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'property_index_no')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'arp_no')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'address')->textarea()->label('Address') ?>
 

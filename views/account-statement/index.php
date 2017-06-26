@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\AccountStatementSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Account Statements';
+$this->title = 'Statements of Account';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="account-statement-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Account Statement', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Statement of Account', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -27,15 +27,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
             'soa_id',
-            'td_no',
             'barangay',
+            'arp_no',
+            'assessed_value',
             'year_unpaid',
             'percentage',
-            // 'basic',
-            // 'penalty_basic',
-            // 'sef',
-            // 'penalty_sef',
-            // 'total_amount',
+            'basic',
+            'penalty_basic',
+            'sef',
+            'penalty_sef',
+            'total_amount',
             // 'grand_total',
             // 'validity',
 

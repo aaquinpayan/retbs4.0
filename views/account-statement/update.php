@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\AccountStatement */
 
-$this->title = 'Update Account Statement: ' . $model->soa_id;
+$this->title = 'Update Statement of Account: ' . $model->soa_id;
 $this->params['breadcrumbs'][] = ['label' => 'Account Statements', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->soa_id, 'url' => ['view', 'id' => $model->soa_id]];
 $this->params['breadcrumbs'][] = 'Update';

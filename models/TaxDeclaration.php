@@ -80,7 +80,7 @@ class TaxDeclaration extends \yii\db\ActiveRecord
             [['property_owner','tot_assessed_value'], 'string', 'max' => 255],
             [['arp_no'], 'unique'],
             [['property_index_no'], 'unique'],
-            [['property_owner'], 'unique'],
+            // [['property_owner'], 'unique'],
             [['survey_no'], 'unique'],
             [['faas','taxdec'], 'required', 'on'=>'create'],
             // [['faas','taxdec'], 'string', 'skipOnEmpty' => true, 'on'=>'update'],
@@ -97,10 +97,10 @@ class TaxDeclaration extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'td_no' => 'TD No',
+            'td_no' => 'TD ID',
+            'arp_no' => 'TD No/ARP No',
             'property_owner' => 'Property Owner',
             'property_index_no' => 'Property Index No',
-            'arp_no' => 'ARP No',
             'address' => 'Address',
             'tel_no' => 'Telephone No',
             'survey_no' => 'Survey No',

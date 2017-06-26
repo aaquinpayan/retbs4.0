@@ -11,7 +11,7 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\helpers\Html;
 use yii\helpers\Url;
-// use NumberToWords\NumberToWords;
+use NumberToWords\NumberToWords;
 
 
 /**
@@ -58,6 +58,9 @@ class TaxDeclarationController extends Controller
     public function actionView($id)
     {
         $this->layout = 'admin';
+        // $model = $this->findModel($id);
+        // $num = $model->php*100;
+        // echo "<br/>" . "<br/>" . "<br/>" . $num;
         
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -85,7 +88,9 @@ class TaxDeclarationController extends Controller
             // build a new number transformer using the RFC 3066 language identifier
             $currencyTransformer = $numberToWords->getCurrencyTransformer('en');
 
-            $model->tot_assessed_value = $currencyTransformer->toWords(($model->php)*100, 'PESO');
+            $num = $model->php*100;
+
+            $model->tot_assessed_value = $currencyTransformer->toWords($num-8, 'PESO');
 
             if ($model->validate()) {
                 $model->faas = UploadedFile::getInstance($model, 'faas');
@@ -160,7 +165,7 @@ class TaxDeclarationController extends Controller
         $model->total_php=str_replace("$","",$model->total_php);
         $model->market_value= str_replace(",","",$model->market_value);
         $model->market_value=str_replace("$","",$model->market_value);
-        echo "<br/>" . "<br/>" . "<br/>" . var_dump('Land                            ');
+        // echo "<br/>" . "<br/>" . "<br/>" . var_dump('Land                            ');
         switch($model->property_kind){
             case 'Land                            ' : $model->property_kind = 'Land';
             break;
@@ -214,9 +219,19 @@ class TaxDeclarationController extends Controller
             
             // $model->faas = $model->faas->name;
             // $model->taxdec = $model->taxdec->name;
+
+             $numberToWords = new NumberToWords();
+
+            // build a new number transformer using the RFC 3066 language identifier
+            $currencyTransformer = $numberToWords->getCurrencyTransformer('en');
+
+            $num = $model->php*100;
+
+            $model->tot_assessed_value = $currencyTransformer->toWords($num-8, 'PESO');
            
 
             if ($model->save()) {
+                // var_dump($num);
                 return $this->redirect(['view', 'id' => $model->td_no]);
             }
         } else {

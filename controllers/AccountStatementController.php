@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\TaxDeclaration;
+use app\models\TaxDeclarationSearch;
 
 /**
  * AccountStatementController implements the CRUD actions for AccountStatement model.
@@ -75,21 +76,28 @@ class AccountStatementController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $user = TaxDeclaration::find()
-                ->where(['arp_no' => $model->td_no])
+                ->where(['arp_no' => $model->arp_no])
                 ->one();
-            $
+
             //$model->total_amount = $user->assessed_value;
            // $model->barangay = $user->location;
 
             //$var = $user->location;
             //$model->barangay = $var;
             $model->barangay = $user->location;
-
+            $model->property_owner = $user->property_owner;
+            $model->address = $user->address;
             $model->year_unpaid = 2016; //edit
             $model->percentage = 24; //edit
+            $model->assessed_value = 12; //temp
+             if ($model->validate()) {
+               
 
-            
-            
+            }else {
+                // validation failed: $errors is an array containing error messages
+                $errors = $model->errors;
+                print_r( $errors);
+            }
 
             $model->basic = $user->assessed_value * 0.01;
             $model->penalty_basic = $model->basic * $model->percentage;

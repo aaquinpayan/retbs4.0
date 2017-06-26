@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\AccountStatement */
 
 $this->title = $model->soa_id;
-$this->params['breadcrumbs'][] = ['label' => 'Account Statements', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Statements of Account', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="account-statement-view">
@@ -30,7 +30,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'soa_id',
-            'td_no',
+            'arp_no',
+            'property_owner',
+            'address',
             'barangay',
             'year_unpaid',
             'percentage',
@@ -40,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'penalty_sef',
             'total_amount',
             'grand_total',
-            //'validity',
+            'assessed_value',
         ],
     ]) ?>
 
