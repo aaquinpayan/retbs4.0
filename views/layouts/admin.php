@@ -26,11 +26,11 @@ use app\assets\AppAsset;
                 ['label' => 'Tax Declaration', 'icon' => 'home', 'url' => ['tax-declaration/index']],
                 ['label' => 'Statement of Account', 'icon' => 'home', 'url' => ['account-statement/index']],
                 ['label' => 'Accounts', 'icon' => 'user', 'items' => [
-                    ['label' => 'Change Password', 'url' => ['users/password']],
-                    // ['label' => 'Taxpayer', 'url' => ['users/taxpayer']],
-                    ['label' => 'Assessor', 'url' => ['users/assessor']],
-                    ['label' => 'Treasurer', 'url' => ['users/treasurer']],
-                    ['label' => 'Administrator', 'url' => ['users/admin']],
+                    ['label' => 'Change Password', 'url' => ['user/password']],
+                    // ['label' => 'Taxpayer', 'url' => ['user/taxpayer']],
+                    ['label' => 'Assessor', 'url' => ['user/assessor']],
+                    ['label' => 'Treasurer', 'url' => ['user/treasurer']],
+                    ['label' => 'Administrator', 'url' => ['user/admin']],
                 ]],
             ],
         ]);    

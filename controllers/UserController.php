@@ -29,13 +29,25 @@ class UserController extends Controller
         ];
     }
 
+    public function generateRandomString($length = 32) {
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $charactersLength = strlen($characters);
+            $randomString = '';
+            for ($i = 0; $i < $length; $i++) {
+                $randomString .= $characters[rand(0, $charactersLength - 1)];
+            }
+        return $randomString;
+    }
+
     /**
      * Lists all Users -> Admin models.
      * @return mixed
      */
     public function actionAdmin()
     {
+
         $this->layout = 'admin';
+
 
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 1);
@@ -53,7 +65,9 @@ class UserController extends Controller
      */
     public function actionAssessor()
     {
+
         $this->layout = 'admin';
+
 
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 2);
@@ -71,7 +85,9 @@ class UserController extends Controller
      */
     public function actionTreasurer()
     {
+
         $this->layout = 'admin';
+
 
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 3);
@@ -87,23 +103,31 @@ class UserController extends Controller
      * Lists all Users -> Taxpayer models.
      * @return mixed
      */
-    public function actionTaxpayer()
-    {
-        $this->layout = 'admin';
+    // public function actionTaxpayer()
+    // {
 
-        $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 4);
-        $dataProvider->pagination->pageSize=5; //not sure
+    //     $this->layout = 'admin';
 
-        return $this->render('taxpayer', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+
+    //     $searchModel = new UsersSearch();
+    //     $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 4);
+    //     $dataProvider->pagination->pageSize=5; //not sure
+
+    //     return $this->render('taxpayer', [
+    //         'searchModel' => $searchModel,
+    //         'dataProvider' => $dataProvider,
+    //     ]);
+    // }
 
     public function actionPassword()
     {
+
         $this->layout = 'admin';
+        $model = new User();
+        return $this->render('password', [
+                'model' => $model,
+            ]);
+
     }
 
     /**
@@ -113,12 +137,17 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
-        $this->layout = 'admin';
 
+        $this->layout = 'admin';
+        $model = $this->findModel($id);
+        // echo "<br/>" . "<br/>" . "<br/>" ;
+        // var_dump($model->username);
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
+
+    
 
     /**
      * Creates a new Users model.
@@ -127,17 +156,28 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        $this->layout = 'admin';
-        $model = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $this->layout = 'admin';
+
+        $model = new User();
+        // echo "<br/>" . "<br/>" . "<br/>" . "HAHAHAHAKDHJSHA";
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->full_name = trim($model->first_name, " ") . ' ' . trim($model->middle_name, " ") . ' ' . trim($model->last_name, " ");
+            $model->authKey = $this->generateRandomString();
+
+
+            if($model->save()){
             return $this->redirect(['view', 'id' => $model->user_id]);
+        }
         } else {
             return $this->render('create', [
                 'model' => $model,
             ]);
         }
     }
+
+
+    
 
     /**
      * Updates an existing Users model.
@@ -147,10 +187,14 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
+
        $this->layout = 'admin';
+
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+        $model->full_name = trim($model->first_name, " ") . ' ' . trim($model->middle_name, " ") . ' ' . trim($model->last_name, " ");             
+        if($model->save())
             return $this->redirect(['view', 'id' => $model->user_id]);
         } else {
             return $this->render('update', [
@@ -169,7 +213,7 @@ class UserController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['users/admin']); #not sure
+        return $this->redirect(['user/admin']); #not sure
     }
 
     /**
@@ -187,4 +231,6 @@ class UserController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+
 }

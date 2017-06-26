@@ -2,15 +2,28 @@
 
 namespace app\models;
 
+use Yii;
+
+/**
+ * This is the model class for table "user".
+ *
+ * @property string $name
+ * @property int $user_id
+ * @property string $username
+ * @property string $password
+ * @property int $user_type
+ */
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
+    /**
+     * @inheritdoc
+     */
+    // public $id;
+    // public $username;
+    // public $password;
+    // public $authKey;
     public $accessToken;
 
-    
     // private static $users = [
     //     '100' => [
     //         'id' => '100',
@@ -27,8 +40,42 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     //         'accessToken' => '101-token',
     //     ],
     // ];
-    
-    
+
+    public static function tableName()
+    {
+        return 'user';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['username', 'password', 'user_type','first_name','middle_name','last_name'], 'required'],
+            [['full_name'], 'string'],
+            [['first_name','middle_name','last_name'], 'string', 'max' => 20],
+            [['user_type'], 'string', 'max' => 10],
+            [['authKey'], 'string', 'max' => 32],
+            [['username', 'password'], 'string', 'max' => 20],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'full_name' => 'Name',
+            'user_id' => 'User ID',
+            'username' => 'Username',
+            'password' => 'Password',
+            'user_type' => 'User Type',
+        ];
+    }
+
+
 
     /**
      * @inheritdoc
@@ -43,7 +90,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        return $this->access_token;
+        // return $this->access_token;
+        throw new NotSupportedException();
     }
 
     /**
@@ -55,7 +103,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public static function findByUsername($username)
     {
 
-        return static::find()->where(['username' => $username])->one();
+       return self::findOne(['username'=>trim($username, " ")]);
 
     }
 
@@ -91,6 +139,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return trim($this->password, " ") === $password;
     }
+
+    
 }

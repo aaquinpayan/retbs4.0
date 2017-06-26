@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Taxpayer;
 
 class SiteController extends Controller
 {
@@ -77,7 +78,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
 
-        echo "<br/>" . "<br/>" . "<br/>" . $model->username;
+        // echo "<br/>" . "<br/>" . "<br/>" . $model->username;
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
             //return $this->render('//taxpayer/index');
@@ -85,6 +86,33 @@ class SiteController extends Controller
         return $this->render('login', [
             'model' => $model,
         ]);
+    }
+
+
+    //register taxpayer
+    public function actionRegister()
+    {
+       $this->layout = 'admin';
+
+        $model = new Taxpayer();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->full_name = $model->first_name . ' ' . $model->middle_name . ' ' . $model->last_name;
+            // if ($model->validate()) {
+                
+
+            // }else {
+            //     // validation failed: $errors is an array containing error messages
+            //     $errors = $model->errors;
+            //     print_r( $errors);
+            // }
+            // print_r(Yii::$app->request->post());
+            if($model->save()) return $this->redirect(['view', 'id' => $model->taxpayer_id]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**

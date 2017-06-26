@@ -56,6 +56,11 @@ $config = [
             ],
         ],
         */
+        'user' => [
+        'identityClass' => 'app\models\User',
+        'enableAutoLogin' => true,//If you don't have authKey column in your DB, set enableAutoLogin field to false
+        'enableSession' => true,
+    ],
     ],
     'params' => $params,
 ];

@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h3>Manage Administrator</h3>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>  
         <p>
-            <?= Html::a('Create Users', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
         </p>
 
         <?=GridView::widget([
@@ -32,18 +32,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
                 
-                'name:ntext',
+                'first_name:ntext',
+            'middle_name:ntext',
+            'last_name:ntext',
                 'username',
                 'password',
 
-                //['class' => 'yii\grid\ActionColumn'],
+                ['class' => 'yii\grid\ActionColumn'],
             ],
         ]); 
        ?>
 </div>
 
 
-
-
-  
 
