@@ -10,6 +10,8 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Taxpayer;
+use app\models\PasswordForm;
+use app\models\User;
 
 class SiteController extends Controller
 {
@@ -24,7 +26,7 @@ class SiteController extends Controller
                 'only' => ['logout'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout', 'changepassword'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -62,7 +64,25 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+
+        if (Yii::$app->user->isGuest) {
+            return $this->render('index');
+        }else{
+            $user_type = trim(Yii::$app->user->identity->user_type, " ");
+
+            if($user_type == 'admin'){
+                $this->layout = 'admin';
+                return $this->render('index');
+            }else if($user_type === 'assessor'){
+                $this->layout = 'assessor';
+                return $this->render('index');
+            }else if($user_type === 'treasurer'){
+                $this->layout = 'treasurer';
+                return $this->render('index');
+            }
+        } 
+
+        return $this->render('index'); 
     }
 
     /**
@@ -72,17 +92,27 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $model = new LoginForm();
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
-        $model = new LoginForm();
-
-        // echo "<br/>" . "<br/>" . "<br/>" . $model->username;
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            /*if(Yii::$app->user->identity->user_type == 'admin     '){
+                return $this->render('admin');
+            }else if (Yii::$app->user->identity->user_type === 'assessor  '){
+                return $this->render('assessor');  
+            }else if (Yii::$app->user->identity->user_type === 'treasurer '){
+                return $this->render('treasurer');  
+            //}else if (Yii::$app->user->identity->user_type === 'taxpayer') == 0){
+            //    return $this->render('taxpayer');  
+            }else{
+                return $this->goHome();
+            }*/
             return $this->goBack();
-            //return $this->render('//taxpayer/index');
         }
+
         return $this->render('login', [
             'model' => $model,
         ]);
@@ -127,11 +157,66 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+    public function actionChangepassword(){
+        $user_type = trim(Yii::$app->user->identity->user_type, " ");
+
+        if($user_type == 'admin'){
+            $this->layout = 'admin';
+        }else if ($user_type === 'assessor'){
+            $this->layout = 'assessor';  
+        }else if ($user_type === 'treasurer'){
+            $this->layout = 'treasurer';  
+        }
+
+        $model = new PasswordForm();
+        //$modeluser = User::find()->where([
+          //  'username'=>Yii::$app->user->identity->username
+        //])->one();
+        $modeluser = User::findByUsername(Yii::$app->user->identity->username);
+      
+        if($model->load(Yii::$app->request->post())){
+            if($model->validate()){
+                try{
+                    $modeluser->password = $_POST['PasswordForm']['newpass'];
+                    if($modeluser->save()){
+                        Yii::$app->getSession()->setFlash(
+                            'success','Password changed'
+                        );
+                        return $this->redirect(['index']);
+                    }else{
+                        Yii::$app->getSession()->setFlash(
+                            'error','Password not changed'
+                        );
+                        return $this->redirect(['index']);
+                    }
+                }catch(Exception $e){
+                    Yii::$app->getSession()->setFlash(
+                        'error',"{$e->getMessage()}"
+                    );
+                    return $this->render('changepassword',[
+                        'model'=>$model
+                    ]);
+                }
+            }else{
+                return $this->render('changepassword',[
+                    'model'=>$model
+                ]);
+            }
+        }else{
+            return $this->render('changepassword',[
+                'model'=>$model
+            ]);
+        }
+    }
+
+
+
     /**
      * Displays contact page.
      *
      * @return string
      */
+    /*
     public function actionContact()
     {
         $model = new ContactForm();
@@ -143,19 +228,35 @@ class SiteController extends Controller
         return $this->render('contact', [
             'model' => $model,
         ]);
-    }
+    }*/
 
     /**
      * Displays about page.
      *
      * @return string
      */
+    /*
     public function actionAbout()
     {
         return $this->render('about');
     }
+    */
 
-    
+    public function actionUpload()
+    {
+        $model = new UploadForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+
+            if ($model->validate()) {                
+                $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
+            }
+        }
+
+        return $this->render('upload', ['model' => $model]);
+    }
+
    
 
 }

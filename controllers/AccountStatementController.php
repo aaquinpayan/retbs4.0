@@ -37,7 +37,15 @@ class AccountStatementController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = 'admin';
+        $user_type = trim(Yii::$app->user->identity->user_type, " ");
+
+        if($user_type == 'admin'){
+            $this->layout = 'admin';
+        }else if ($user_type === 'assessor'){
+            $this->layout = 'assessor';  
+        }else if ($user_type === 'treasurer'){
+            $this->layout = 'treasurer';  
+        }
 
         $searchModel = new AccountStatementSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -55,7 +63,15 @@ class AccountStatementController extends Controller
      */
     public function actionView($id)
     {
-        $this->layout = 'admin';
+        $user_type = trim(Yii::$app->user->identity->user_type, " ");
+
+        if($user_type == 'admin'){
+            $this->layout = 'admin';
+        }else if ($user_type === 'assessor'){
+            $this->layout = 'assessor';  
+        }else if ($user_type === 'treasurer'){
+            $this->layout = 'treasurer';  
+        }
 
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -67,9 +83,18 @@ class AccountStatementController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($user)
     {
-        $this->layout = 'admin';
+        $user_type = trim(Yii::$app->user->identity->user_type, " ");
+
+        if($user_type == 'admin'){
+            $this->layout = 'admin';
+        }else if ($user_type === 'assessor'){
+            $this->layout = 'assessor';  
+        }else if ($user_type === 'treasurer'){
+            $this->layout = 'treasurer';  
+        }
+
         $var = "";
 
         $model = new AccountStatement();
@@ -129,7 +154,15 @@ class AccountStatementController extends Controller
      */
     public function actionUpdate($id)
     {
-        $this->layout = 'admin';
+        $user_type = trim(Yii::$app->user->identity->user_type, " ");
+
+        if($user_type == 'admin'){
+            $this->layout = 'admin';
+        }else if ($user_type === 'assessor'){
+            $this->layout = 'assessor';  
+        }else if ($user_type === 'treasurer'){
+            $this->layout = 'treasurer';  
+        }
 
         $model = $this->findModel($id);
 
