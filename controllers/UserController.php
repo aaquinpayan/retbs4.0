@@ -8,8 +8,6 @@ use app\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\TaxDeclaration;
-use app\models\TaxDeclarationSearch;
 
 /**
  * UsersController implements the CRUD actions for Users model.
@@ -19,9 +17,6 @@ class UserController extends Controller
     /**
      * @inheritdoc
      */
-
-    public $generatedPw;
-
     public function behaviors()
     {
         return [
@@ -34,7 +29,7 @@ class UserController extends Controller
         ];
     }
 
-    public function generateRandomString($length) {
+    public function generateRandomString($length = 32) {
             $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
             $charactersLength = strlen($characters);
             $randomString = '';
@@ -50,9 +45,7 @@ class UserController extends Controller
      */
     public function actionAdmin()
     {
-
         $this->layout = 'admin';
-
 
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 'admin');
@@ -70,9 +63,7 @@ class UserController extends Controller
      */
     public function actionAssessor()
     {
-
         $this->layout = 'admin';
-
 
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 'assessor');
@@ -90,9 +81,7 @@ class UserController extends Controller
      */
     public function actionTreasurer()
     {
-
         $this->layout = 'admin';
-
 
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 'treasurer');
@@ -108,32 +97,33 @@ class UserController extends Controller
      * Lists all Users -> Taxpayer models.
      * @return mixed
      */
-    public function actionTaxpayer()
+    // public function actionTaxpayer()
+    // {
+
+    //     $this->layout = 'admin';
+
+
+    //     $searchModel = new UsersSearch();
+    //     $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 4);
+    //     $dataProvider->pagination->pageSize=5; //not sure
+
+    //     return $this->render('taxpayer', [
+    //         'searchModel' => $searchModel,
+    //         'dataProvider' => $dataProvider,
+    //     ]);
+    // }
+
+    /*public function actionPassword()
     {
 
         $this->layout = 'admin';
 
-
-        $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 'taxpayer');
-        $dataProvider->pagination->pageSize=5; //not sure
-
-        return $this->render('taxpayer', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    public function actionPassword()
-    {
-
-        $this->layout = 'admin';
         $model = new User();
         return $this->render('password', [
                 'model' => $model,
             ]);
 
-    }
+    }*/
 
     /**
      * Displays a single Users model.
@@ -144,20 +134,16 @@ class UserController extends Controller
     {
 
         $this->layout = 'admin';
+        
         $model = $this->findModel($id);
-        // echo "<br/>" . "<br/>" . "<br/>" . md5('admin') . md5('admin') . " " . $model->password;
-        // $hash = Yii::$app->getSecurity()->generatePasswordHash($model->password);
-        // echo $hash;
-        // var_dump($model->generatedPw);
+        // echo "<br/>" . "<br/>" . "<br/>" ;
+        // var_dump($model->username);
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
 
-     public function getFirstLetter($string) {
-        return substr($string, 0, 1);
-     }
-
+    
 
     /**
      * Creates a new Users model.
@@ -170,20 +156,14 @@ class UserController extends Controller
         $this->layout = 'admin';
 
         $model = new User();
-        // $model->user_type = 'admin';
-
+        // echo "<br/>" . "<br/>" . "<br/>" . "HAHAHAHAKDHJSHA";
         if ($model->load(Yii::$app->request->post()) ) {
-
-            $user = TaxDeclaration::find()
-                ->where(['property_owner' => $model->last_name])
-                ->one();
-
-
-                
             $model->full_name = trim($model->first_name, " ") . ' ' . trim($model->middle_name, " ") . ' ' . trim($model->last_name, " ");
+            $model->authKey = $this->generateRandomString();
 
-            $model->authKey = $this->generateRandomString(32);
 
+
+            if($model->save()){
             
             //generates username
             $temp_lastName = str_replace(" ", "", $model->last_name);
@@ -212,8 +192,9 @@ class UserController extends Controller
         
          if($model->save()){
             Yii::$app->session->setFlash('success', "Username: " . $model->username . "<br/>" . "Password: " . $generatedPw);
+
             return $this->redirect(['view', 'id' => $model->user_id]);
-            }
+        }
         } else {
             return $this->render('create', [
                 'model' => $model,

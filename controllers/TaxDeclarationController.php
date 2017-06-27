@@ -12,7 +12,7 @@ use yii\web\UploadedFile;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\validators\DefaultValueValidator;
-use NumberToWords\NumberToWords;
+// use NumberToWords\NumberToWords;
 
 
 /**
@@ -41,7 +41,16 @@ class TaxDeclarationController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = 'admin';
+        $user_type = trim(Yii::$app->user->identity->user_type, " ");
+
+        if($user_type == 'admin'){
+            $this->layout = 'admin';
+        }else if ($user_type === 'assessor'){
+            $this->layout = 'assessor';  
+        }else if ($user_type === 'treasurer'){
+            $this->layout = 'treasurer';  
+        }
+        
         $searchModel = new TaxDeclarationSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -58,7 +67,15 @@ class TaxDeclarationController extends Controller
      */
     public function actionView($id)
     {
-        $this->layout = 'admin';
+        $user_type = trim(Yii::$app->user->identity->user_type, " ");
+
+        if($user_type == 'admin'){
+            $this->layout = 'admin';
+        }else if ($user_type === 'assessor'){
+            $this->layout = 'assessor';  
+        }else if ($user_type === 'treasurer'){
+            $this->layout = 'treasurer';  
+        }
         
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -72,55 +89,57 @@ class TaxDeclarationController extends Controller
      */
     public function actionCreate()
     {
-        $model = new TaxDeclaration();
-        $this->layout = 'admin';
+        $user_type = trim(Yii::$app->user->identity->user_type, " ");
 
-        
+        if($user_type == 'admin'){
+            $this->layout = 'admin';
+        }else if ($user_type === 'assessor'){
+            $this->layout = 'assessor';  
+        }else if ($user_type === 'treasurer'){
+            $this->layout = 'treasurer';  
+        }
+
+        $model = new TaxDeclaration();
+
         if ($model->load(Yii::$app->request->post())) {
             
-            $model->property_owner =  trim($model->first_name, " ") . ' ' . trim($model->last_name," ");
-            $model->cancels_owner = 'SAME';
-            //  $model->assessment_level = $model->assessment_level / 100;
-            // $model->assessed_value = $model->market_value * $model->assessment_level;
-            // $model->php = $model->assessed_value;
-            // $model->total_php = $model->market_value;
+            $model->assessment_level = $model->assessment_level / 100;
+            $model->assessed_value = $model->market_value * $model->assessment_level;
+            $model->php = $model->assessed_value;
+            $model->total_php = $model->market_value;
+
             // create the number to words "manager" class
             $numberToWords = new NumberToWords();
 
             // build a new number transformer using the RFC 3066 language identifier
             $currencyTransformer = $numberToWords->getCurrencyTransformer('en');
 
-            $num = $model->php*100;
-
-            $model->tot_assessed_value = $currencyTransformer->toWords($num, 'PESO');
-            $model->mun_assessor = 'Engr. Ernesto M. Hernandez';
-            $model->prov_assessor = 'Engr. Eduardo B. Cedo, Jr.';
-
-            $model->faas = UploadedFile::getInstance($model, 'faas');
-            $model->taxdec = UploadedFile::getInstance($model, 'taxdec');
-
-                
+            $model->tot_assessed_value = $currencyTransformer->toWords(($model->php)*100, 'PESO');
 
             if ($model->validate()) {
+                $model->faas = UploadedFile::getInstance($model, 'faas');
+                $model->taxdec = UploadedFile::getInstance($model, 'taxdec');
+
                 $model->faas->saveAs('faas_uploads/' . $model->faas->baseName . '.' . $model->faas->extension);
                 $model->taxdec->saveAs('taxdec_uploads/' . $model->taxdec->baseName . '.' . $model->taxdec->extension);
 
                 $model->faas = $model->faas->name;
                 $model->taxdec = $model->taxdec->name;
+
+            }else {
+                // validation failed: $errors is an array containing error messages
+                $errors = $model->errors;
+                print_r( $errors);
             }
-            // }else {
-            //     // validation failed: $errors is an array containing error messages
-            //     $errors = $model->errors;
-            //     print_r( $errors);
-            // }
             // print_r(Yii::$app->request->post());
 
             if ($model->save()) {
+                
                 return $this->redirect(['view', 'id' => $model->td_no]);
             }    
 
         } else {
-            // echo "<br>" . "<br>" . $imodel->faas;
+
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -129,7 +148,15 @@ class TaxDeclarationController extends Controller
 
      public function actionUpload()
     {
-         $this->layout = 'admin';
+        $user_type = trim(Yii::$app->user->identity->user_type, " ");
+
+        if($user_type == 'admin'){
+            $this->layout = 'admin';
+        }else if ($user_type === 'assessor'){
+            $this->layout = 'assessor';  
+        }else if ($user_type === 'treasurer'){
+            $this->layout = 'treasurer';  
+        }
 
         $model = new UploadForm();
 
@@ -160,7 +187,16 @@ class TaxDeclarationController extends Controller
      */
     public function actionUpdate($id)
     {
-        $this->layout = 'admin';
+        $user_type = trim(Yii::$app->user->identity->user_type, " ");
+
+        if($user_type == 'admin'){
+            $this->layout = 'admin';
+        }else if ($user_type === 'assessor'){
+            $this->layout = 'assessor';  
+        }else if ($user_type === 'treasurer'){
+            $this->layout = 'treasurer';  
+        }
+
         $model = $this->findModel($id);
 
         $model->php= str_replace(",","",$model->php);
@@ -171,7 +207,7 @@ class TaxDeclarationController extends Controller
         $model->total_php=str_replace("$","",$model->total_php);
         $model->market_value= str_replace(",","",$model->market_value);
         $model->market_value=str_replace("$","",$model->market_value);
-        // echo "<br/>" . "<br/>" . "<br/>" . var_dump('Land                            ');
+        echo "<br/>" . "<br/>" . "<br/>" . var_dump('Land                            ');
         switch($model->property_kind){
             case 'Land                            ' : $model->property_kind = 'Land';
             break;
@@ -191,8 +227,7 @@ class TaxDeclarationController extends Controller
         $originalTaxdec = $model->taxdec;
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->property_owner =  trim($model->first_name, " ") . ' ' . trim($model->last_name," ");
-            $model->cancels_owner = 'SAME';
+
             $uploadedFaas =  UploadedFile::getInstance($model, 'faas');
             $uploadedTaxdec = UploadedFile::getInstance($model, 'taxdec');
 
@@ -226,19 +261,9 @@ class TaxDeclarationController extends Controller
             
             // $model->faas = $model->faas->name;
             // $model->taxdec = $model->taxdec->name;
-
-             $numberToWords = new NumberToWords();
-
-            // build a new number transformer using the RFC 3066 language identifier
-            $currencyTransformer = $numberToWords->getCurrencyTransformer('en');
-
-            $num = $model->php*100;
-
-            $model->tot_assessed_value = $currencyTransformer->toWords($num, 'PESO');
            
 
             if ($model->save()) {
-                // var_dump($num);
                 return $this->redirect(['view', 'id' => $model->td_no]);
             }
         } else {
@@ -256,7 +281,16 @@ class TaxDeclarationController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->layout = 'admin';
+        $user_type = trim(Yii::$app->user->identity->user_type, " ");
+
+        if($user_type == 'admin'){
+            $this->layout = 'admin';
+        }else if ($user_type === 'assessor'){
+            $this->layout = 'assessor';  
+        }else if ($user_type === 'treasurer'){
+            $this->layout = 'treasurer';  
+        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
