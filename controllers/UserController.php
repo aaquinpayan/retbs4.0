@@ -162,7 +162,37 @@ class UserController extends Controller
             $model->authKey = $this->generateRandomString();
 
 
+
             if($model->save()){
+            
+            //generates username
+            $temp_lastName = str_replace(" ", "", $model->last_name);
+            $user = "";
+            $user .= $this->getFirstLetter($model->first_name);
+            $user .= $this->getFirstLetter($model->middle_name);
+            $user .= $temp_lastName;
+
+            $generatedPw = $this->generateRandomString(6);
+            $model->password = md5($generatedPw);
+
+            $user = strtolower($user);
+            if ($model->validate()) {
+                 $model->username = $user;
+            }
+             else {
+                // validation failed: $errors is an array containing error messages
+                $errors = $model->errors;
+                print_r( $errors);
+            }
+           
+
+            
+        // print_r(Yii::$app->request->post());
+
+        
+         if($model->save()){
+            Yii::$app->session->setFlash('success', "Username: " . $model->username . "<br/>" . "Password: " . $generatedPw);
+
             return $this->redirect(['view', 'id' => $model->user_id]);
         }
         } else {
