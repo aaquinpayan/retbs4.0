@@ -201,8 +201,13 @@ class UserController extends Controller
             }
              else {
                 // validation failed: $errors is an array containing error messages
-                $errors = $model->errors;
-                print_r( $errors);
+                $addNum = 1;
+                while (!$model->validate()){
+                    $model->username = $user . $addNum;
+                    $addNum = $addNum + 1;
+                }
+                // $errors = $model->errors;
+                // print_r( $errors);
             }
            
 
