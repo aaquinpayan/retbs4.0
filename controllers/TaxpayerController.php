@@ -5,6 +5,8 @@ namespace app\controllers;
 use Yii;
 use app\models\Taxpayer;
 use app\models\TaxpayerSearch;
+use app\models\TaxDeclaration;
+use app\models\TaxDeclarationSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -74,7 +76,13 @@ class TaxpayerController extends Controller
         $model = new Taxpayer();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->full_name = $model->first_name . ' ' . $model->middle_name . ' ' . $model->last_name;
+            // $model->full_name = $model->first_name . ' ' . $model->middle_name . ' ' . $model->last_name;
+            $user = TaxDeclaration::find()
+                ->where(['property_owner' => $model->full_name])
+                ->one();
+
+            print_r($user);
+            $model->address = $user->address;
             if ($model->validate()) {
                 
 
@@ -102,22 +110,38 @@ class TaxpayerController extends Controller
     {
         $this->layout = 'admin';
         $model = $this->findModel($id);
-         // echo "<br/>" . "<br/>" . "<br/>" ;
+         echo "<br/>" . "<br/>" . "<br/>" ;
         
 
         // var_dump('Paid                            ');
         if($model->gender == 'Female                          ') $model->gender = 'Female';
         else $model->gender = 'Male';
+        
+            // $model->full_name = $model->first_name . ' ' . $model->middle_name . ' ' . $model->last_name;
+            $userTemp = trim($model->full_name) ;
+            if ($model->validate()) {
+                
 
-        if($model->payment_status == 'Paid                            ') $model->payment_status = 'Paid';
-        else $model->payment_status = 'Not Paid';
+            }else {
+                // validation failed: $errors is an array containing error messages
+                $errors = $model->errors;
+                print_r( $errors);
+            }
 
-
+            var_dump($userTemp);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->full_name = $model->first_name . ' ' . $model->middle_name . ' ' . $model->last_name;
-             if($model->save())
+
+            $user = TaxDeclaration::find()
+                ->where(['property_owner' => $userTemp])
+                ->one();
+
+                $model->address = $user->address;
+            // $model->full_name = $model->first_name . ' ' . $model->middle_name . ' ' . $model->last_name;
+             if($model->save()){
+                
             return $this->redirect(['view', 'id' => $model->taxpayer_id]);
+            }
         } else {
             return $this->render('update', [
                 'model' => $model,

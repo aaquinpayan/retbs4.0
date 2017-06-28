@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Taxpayer */
 
-$this->title = $model->taxpayer_id;
+$this->title = $model->full_name;
 $this->params['breadcrumbs'][] = ['label' => 'Taxpayers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'gender',
             'occupation',
             'address',
-            'payment_status',
+            // 'payment_status',
         ],
     ]) ?>
 

@@ -52,12 +52,11 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'password', 'user_type','first_name','middle_name','last_name'], 'required'],
+            [['username', 'password', 'user_type','last_name'], 'required'],
             [['full_name'], 'string'],
-            [['first_name','middle_name','last_name'], 'string', 'max' => 20],
+            [['first_name','middle_name','last_name','username'], 'string', 'max' => 255],
             [['user_type'], 'string', 'max' => 10],
-            [['authKey'], 'string', 'max' => 32],
-            [['username', 'password'], 'string', 'max' => 20],
+            [['authKey', 'password'], 'string', 'max' => 32],
         ];
     }
 
@@ -70,7 +69,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'full_name' => 'Name',
             'user_id' => 'User ID',
             'username' => 'Username',
-            'password' => 'Password',
+            'last_name' => 'Last Name/Company Name',
+            // 'password' => 'Password',
             'user_type' => 'User Type',
         ];
     }
@@ -139,7 +139,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-        return trim($this->password, " ") === $password;
+        $trimmed = trim($this->password, " ");
+        return $trimmed === md5($password);
     }
 
     

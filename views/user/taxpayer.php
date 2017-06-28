@@ -1,4 +1,3 @@
-
 <?php
 
 use yii\helpers\Html;
@@ -13,38 +12,35 @@ use yii\helpers\Url;
 
 $this->title = 'Taxpayer';
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
-
+  
 <div class="user-index">
     <h3>Manage Taxpayer</h3>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>  
-        <p>
-            <!-- <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?> -->
-        </p>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-        <?=GridView::widget([
-            'dataProvider' => $dataProvider,
-            'filterModel' => $searchModel,
-            'rowOptions' => function($model) {
-                $url = Url::to(['user/view', 'id' => $model['user_id']]);
-                return ['onclick' => "window.location.href='{$url}'"];
-            },
-            'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
-                'name:ntext',
-                'username',
-                'password',
+    <p>
+        <!-- <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?> -->
+    </p>
 
-                ['class' => 'yii\grid\ActionColumn'],
-            ],
-        ]); 
-       ?>
+    <?=GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'rowOptions' => function($model) {
+            $url = Url::to(['user/view', 'id' => $model['user_id']]);
+            return ['onclick' => "window.location.href='{$url}'"];
+        },
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'first_name:ntext',
+            'middle_name:ntext',
+            'last_name:ntext',
+            'username',
+            // 'password',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); 
+   ?>
 </div>
-
-
-
-
-  
-
 

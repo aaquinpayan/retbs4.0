@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <p>
         <?= Html::a('Create Tax Declaration', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Upload Master List', ['upload'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Master List', ['upload'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

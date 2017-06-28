@@ -49,8 +49,9 @@ class LoginForm extends Model
 
             if (!$user || !$user->validatePassword($this->password)) {
                 // echo "<br/>" . "<br/>" . "<br/>" ;
-                // var_dump($user->username);
-                // var_dump($user->password);
+                // // var_dump($user->username);
+                // var_dump(md5('admin                           '));
+                // var_dump(md5($this->password));
                 $this->addError($attribute, 'Incorrect username or password.');
             }
         }
