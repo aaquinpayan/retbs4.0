@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\Breadcrumbs;
+use app\assets\AppAsset;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AccountStatementSearch */
@@ -22,21 +25,26 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function($model) {
+            $url = Url::to(['account-statement/view', 'id' => $model['soa_id']]);
+            return ['onclick' => "window.location.href='{$url}'"];
+        },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
 
             'soa_id',
-            'barangay',
+            'property_owner',
             'arp_no',
-            'assessed_value',
-            'year_unpaid',
-            'percentage',
-            'basic',
-            'penalty_basic',
-            'sef',
-            'penalty_sef',
-            'total_amount',
+            'barangay',
+            //'assessed_value',
+            //'year_unpaid',
+            //'percentage',
+            //'basic',
+            //'penalty_basic',
+            //'sef',
+            //'penalty_sef',
+            //'total_amount',
             // 'grand_total',
             // 'validity',
 

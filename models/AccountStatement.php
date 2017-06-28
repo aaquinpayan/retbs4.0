@@ -41,8 +41,8 @@ class AccountStatement extends \yii\db\ActiveRecord
             [['basic', 'penalty_basic', 'sef', 'penalty_sef', 'total_amount', 'grand_total', 'assessed_value'], 'number'],
             //[['validity'], 'safe'],
             [['arp_no'], 'string', 'max' => 128],
-             [['property_owner', 'barangay'], 'string', 'max' => 255],
-            [['address'], 'string', 'max' => 32],
+             [['property_owner'], 'string', 'max' => 255],
+            [['barangay', 'address'], 'string', 'max' => 32],
         ];
     }
 
